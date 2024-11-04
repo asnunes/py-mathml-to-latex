@@ -65,3 +65,8 @@ class VoidMathMLElement(MathMLElement):
     @property
     def attributes(self) -> dict:
         return {}
+
+class InvalidNumberOfChildrenError(Exception):
+    def __init__(self, tag_name: str, expected_number_of_child: int, current_number_of_child: int, comparison: str = 'exactly'):
+        super().__init__(f'{tag_name} tag must have {comparison} {expected_number_of_child} children. It\'s actually {current_number_of_child}')
+        self.name = 'InvalidNumberOfChildrenError'

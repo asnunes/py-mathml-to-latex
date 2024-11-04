@@ -2,8 +2,20 @@ from typing import Optional
 
 from src.syntax import HashUTF8ToLtXConverter, all_math_symbols_by_char, all_math_symbols_by_glyph, math_number_by_glyph, \
     all_math_operators_by_char, all_math_operators_by_glyph
-from .protocols import ToLaTeXConverter, MathMLElement
+from .protocols import ToLaTeXConverter, MathMLElement, InvalidNumberOfChildrenError
 from .services.normalizer import WhiteSpaceNormalizer
+from .services.wrapper import ParenthesisWrapper, BracketWrapper
+
+
+class Math(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._white_space_normalizer = WhiteSpaceNormalizer()
+        self._adapter = adapter
+        self._math_element = math_element
+
+    def convert(self) -> str:
+        raw_tex = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        return self._white_space_normalizer.normalize(raw_tex)
 
 class Void(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement):
@@ -14,19 +26,19 @@ class Void(ToLaTeXConverter):
 
 class MI(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement):
-        self.utf8_converter = HashUTF8ToLtXConverter()
-        self.normalizer = WhiteSpaceNormalizer()
+        self._utf8_converter = HashUTF8ToLtXConverter()
+        self._normalizer = WhiteSpaceNormalizer()
         self._math_element = math_element
 
     def convert(self) -> str:
-        normalized_value = self.normalizer.normalize(self._math_element.value)
+        normalized_value = self._normalizer.normalize(self._math_element.value)
         if normalized_value == ' ':
             return Character.apply(normalized_value)
 
         trimmed_value = normalized_value.strip()
         converted_char = Character.apply(trimmed_value)
 
-        parsed_char = self.utf8_converter.convert(converted_char)
+        parsed_char = self._utf8_converter.convert(converted_char)
         if parsed_char != converted_char:
             return parsed_char
 
@@ -137,11 +149,106 @@ class Operator:
 
 class MN(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement):
-        self.normalizer = WhiteSpaceNormalizer()
+        self._normalizer = WhiteSpaceNormalizer()
         self._math_element = math_element
 
     def convert(self) -> str:
-        normalized_value = self.normalizer.normalize(self._math_element.value).strip()
+        normalized_value = self._normalizer.normalize(self._math_element.value).strip()
         converted_value = math_number_by_glyph.get(normalized_value, '')
 
         return converted_value or normalized_value
+
+# export class MSup implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
+#
+#     const baseChild = children[0];
+#     const exponentChild = children[1];
+#
+#     return `${this._handleBaseChild(baseChild)}^${this._handleExponentChild(exponentChild)}`;
+#   }
+#
+#   private _handleBaseChild(base: MathMLElement): string {
+#     const baseChildren = base.children;
+#     const baseStr = mathMLElementToLaTeXConverter(base).convert();
+#
+#     if (baseChildren.length <= 1) {
+#       return baseStr;
+#     }
+#
+#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(baseStr);
+#   }
+#
+#   private _handleExponentChild(exponent: MathMLElement): string {
+#     const exponentStr = mathMLElementToLaTeXConverter(exponent).convert();
+#
+#     return new BracketWrapper().wrap(exponentStr);
+#   }
+# }
+
+class MSup(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._parenthesis_wrapper = ParenthesisWrapper()
+        self._bracket_wrapper = BracketWrapper()
+
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
+
+        if children_length != 2:
+            raise InvalidNumberOfChildrenError(name, 2, children_length)
+
+        base_child = children[0]
+        exponent_child = children[1]
+
+        return f'{self._handle_base_child(base_child)}^{self._handle_exponent_child(exponent_child)}'
+
+    def _handle_base_child(self, base: MathMLElement) -> str:
+        base_children = base.children
+        base_str = self._adapter.to_latex_converter(base).convert()
+
+        if len(base_children) <= 1:
+            return base_str
+
+        return self._parenthesis_wrapper.wrap_if_more_than_one_char(base_str)
+
+    def _handle_exponent_child(self, exponent: MathMLElement) -> str:
+        exponent_str = self._adapter.to_latex_converter(exponent).convert()
+
+        return self._bracket_wrapper.wrap(exponent_str)
+
+
+# export class GenericSpacingWrapper implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     return this._mathmlElement.children
+#       .map((child) => mathMLElementToLaTeXConverter(child))
+#       .map((converter) => converter.convert())
+#       .join(' ');
+#   }
+# }
+
+class GenericSpacingWrapper(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        return ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])

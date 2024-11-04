@@ -1,6 +1,6 @@
-from src.mathml_to_tex.protocols import MathMLElement, ToLaTeXConverter
-from .services.normalizer import WhiteSpaceNormalizer
-from .usecases import Void, MI, MO, MN
+from src.mathml_to_tex.protocols import MathMLElement
+from .usecases import Void, MI, MO, MN, Math, MSup, GenericSpacingWrapper
+
 
 class MathMLElementToLatexConverterAdapter:
     def to_latex_converter(self, mathml_element: MathMLElement):
@@ -11,7 +11,7 @@ class MathMLElementToLatexConverterAdapter:
 
     def _from_mathml_element_to_latex_converter(self):
         return {
-            'math': Math,
+            'math': self._make_math_tag_converter,
             'mi': MI,
             'mo': MO,
             'mn': MN,
@@ -23,7 +23,7 @@ class MathMLElementToLatexConverterAdapter:
             # 'menclose': ToLatexConverters.MEnclose,
             # 'merror': ToLatexConverters.MError,
             # 'mphantom': ToLatexConverters.MPhantom,
-            # 'msup': ToLatexConverters.MSup,
+            'msup': self._make_msup_tag_converter,
             # 'msub': ToLatexConverters.MSub,
             # 'msubsup': ToLatexConverters.MSubsup,
             # 'mmultiscripts': ToLatexConverters.MMultiscripts,
@@ -33,17 +33,15 @@ class MathMLElementToLatexConverterAdapter:
             # 'mtr': ToLatexConverters.MTr,
             # 'mover': ToLatexConverters.GenericUnderOver,
             # 'munder': ToLatexConverters.GenericUnderOver,
-            # 'mrow': ToLatexConverters.GenericSpacingWrapper,
+            'mrow': self._make_generic_spacing_wrapper,
             # 'mpadded': ToLatexConverters.GenericSpacingWrapper,
-            # 'void': ToLatexConverters.Void,
         }
 
-class Math(ToLaTeXConverter):
-    def __init__(self, math_element: MathMLElement):
-        self.white_space_normalizer = WhiteSpaceNormalizer()
-        self.adapter = MathMLElementToLatexConverterAdapter()
-        self._math_element = math_element
+    def _make_math_tag_converter(self, math_element: MathMLElement) -> Math:
+        return Math(math_element, self)
 
-    def convert(self) -> str:
-        raw_tex = ' '.join([self.adapter.to_latex_converter(child).convert() for child in self._math_element.children])
-        return self.white_space_normalizer.normalize(raw_tex)
+    def _make_msup_tag_converter(self, math_element: MathMLElement) -> MSup:
+        return MSup(math_element, self)
+
+    def _make_generic_spacing_wrapper(self, math_element: MathMLElement) -> GenericSpacingWrapper:
+        return GenericSpacingWrapper(math_element, self)

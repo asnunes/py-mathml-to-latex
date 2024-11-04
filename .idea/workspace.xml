@@ -5,30 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/py-mathml-to-latex.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/protocols.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/services/normalizer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/syntax.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/xml_to_mathml/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/xml_to_mathml/adapter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/xml_to_mathml/factory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/xml_to_mathml/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/xml_to_mathml/services/error_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/xml_to_mathml/services/xml_elements_to_mathml_element.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_tex/services/wrapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/mathml.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/protocols.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/protocols.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +90,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="8862000" />
+      <workItem from="1730573663996" duration="11275000" />
     </task>
     <servers />
   </component>
