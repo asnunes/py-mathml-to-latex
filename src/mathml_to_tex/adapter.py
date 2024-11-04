@@ -1,11 +1,11 @@
-from src.mathml_to_tex.protocols import MathMLElement
-from .usecases import Void, MI, MO, MN, Math, MSup, GenericSpacingWrapper
+from src.mathml_to_tex.protocols import MathMLElement, VoidMathMLElement
+from .usecases import Void, MI, MO, MN, Math, MSup, GenericSpacingWrapper, MSqrt
 
 
 class MathMLElementToLatexConverterAdapter:
     def to_latex_converter(self, mathml_element: MathMLElement):
-        name = mathml_element.name
-        converter = self._from_mathml_element_to_latex_converter().get(name, Void)
+        name = mathml_element.name or VoidMathMLElement().name
+        converter = self._from_mathml_element_to_latex_converter().get(name, self._make_generic_spacing_wrapper)
 
         return converter(mathml_element)
 
@@ -15,7 +15,7 @@ class MathMLElementToLatexConverterAdapter:
             'mi': MI,
             'mo': MO,
             'mn': MN,
-            # 'msqrt': ToLatexConverters.MSqrt,
+            'msqrt': self._make_msqrt_tag_converter,
             # 'mfenced': ToLatexConverters.MFenced,
             # 'mfrac': ToLatexConverters.MFrac,
             # 'mroot': ToLatexConverters.MRoot,
@@ -42,6 +42,9 @@ class MathMLElementToLatexConverterAdapter:
 
     def _make_msup_tag_converter(self, math_element: MathMLElement) -> MSup:
         return MSup(math_element, self)
+
+    def _make_msqrt_tag_converter(self, math_element: MathMLElement) -> MSqrt:
+        return MSqrt(math_element, self)
 
     def _make_generic_spacing_wrapper(self, math_element: MathMLElement) -> GenericSpacingWrapper:
         return GenericSpacingWrapper(math_element, self)
