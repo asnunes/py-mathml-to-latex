@@ -35,7 +35,7 @@ class MathMLElementToLatexConverterAdapter:
             # 'mover': ToLatexConverters.GenericUnderOver,
             # 'munder': ToLatexConverters.GenericUnderOver,
             'mrow': self._make_generic_spacing_wrapper,
-            # 'mpadded': ToLatexConverters.GenericSpacingWrapper,
+            'mpadded': self._make_generic_spacing_wrapper,
         }
 
     def _make_math_tag_converter(self, math_element: MathMLElement) -> Math:

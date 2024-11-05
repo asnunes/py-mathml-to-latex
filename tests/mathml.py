@@ -764,7 +764,17 @@ mroot_with_three_children = '''
 </root>
 '''
 
-
+mpadded = '''
+<root>
+  <math>
+    <mpadded>
+      <mn>2</mn>
+      <mo>+</mo>
+      <mn>2</mn>
+    </mpadded>
+  </math>
+</root>
+'''
 
 
 

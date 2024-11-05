@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/mathml.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/mathml.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
@@ -159,7 +157,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="24827000" />
+      <workItem from="1730573663996" duration="24871000" />
     </task>
     <servers />
   </component>

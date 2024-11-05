@@ -15,7 +15,7 @@ from tests.mathml import (
     mfenced_with_wrapped_content, mfenced_with_empty_separator, mfenced_with_separator, mfenced_with_diff_separators,
     mfenced_as_bmatrix, mfenced_as_pmatrix, mfenced_as_vmatrix, mfenced_as_big_bmatrix, mfenced_as_big_vmatrix,
     mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables, mfrac_with_three_children,
-    short_m_frac, mfrac_with_mrow, mfrac, mroot, mroot_with_three_children,
+    short_m_frac, mfrac_with_mrow, mfrac, mroot, mroot_with_three_children, mpadded,
 
 )
 
@@ -242,11 +242,11 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(mroot_with_three_children)
 
-    # def test_convert_mpadded(self):
-    #     expected_latex = '2 + 2'
-    #     result = self.converter.convert(mpadded)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_mpadded(self):
+        expected_latex = '2 + 2'
+        result = self.converter.convert(mpadded)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_maction_toggle(self):
     #     expected_latex = 'a + 2 \\Longrightarrow b - 3'
     #     result = self.converter.convert(maction)
