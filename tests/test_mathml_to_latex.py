@@ -98,6 +98,9 @@ from tests.mathml import (
     munder,
     munder_double_mrow,
     munder_encoded_mrow,
+    munderover,
+    munderover_encoded,
+    munderover_with_three_children,
 )
 
 
@@ -604,20 +607,20 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(munder_encoded_mrow)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_munderover(self):
-    #     expected_latex = '\\int_{0}^{1}'
-    #     result = self.converter.convert(munderover)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_munderover_encoded(self):
-    #     expected_latex = '\\int_{0}^{\\infty}'
-    #     result = self.converter.convert(munderover_encoded)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_munderover_with_three_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(munderover_with_three_children)
-    #
+    def test_convert_munderover(self):
+        expected_latex = "\\int_{0}^{1}"
+        result = self.converter.convert(munderover)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_munderover_encoded(self):
+        expected_latex = "\\int_{0}^{\\infty}"
+        result = self.converter.convert(munderover_encoded)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_munderover_with_three_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(munderover_with_three_children)
+
     # def test_convert_mmultiscript(self):
     #     expected_latex = '\\left(N a\\right)_{11}^{+}'
     #     result = self.converter.convert(mmultiscript)

@@ -1216,3 +1216,45 @@ class GenericUnderOver(ToLaTeXConverter):
             else TagTypes.Over
         )
         return UnderOverSetter(ty).apply(content, accent)
+
+
+# export class MUnderover implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 3) throw new InvalidNumberOfChildrenError(name, 3, childrenLength);
+#
+#     const base = mathMLElementToLaTeXConverter(children[0]).convert();
+#     const underContent = mathMLElementToLaTeXConverter(children[1]).convert();
+#     const overContent = mathMLElementToLaTeXConverter(children[2]).convert();
+#
+#     return `${base}_{${underContent}}^{${overContent}}`;
+#   }
+# }
+
+
+class MUnderover(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
+
+        if children_length != 3:
+            raise InvalidNumberOfChildrenError(name, 3, children_length)
+
+        base = self._adapter.to_latex_converter(children[0]).convert()
+        under_content = self._adapter.to_latex_converter(children[1]).convert()
+        over_content = self._adapter.to_latex_converter(children[2]).convert()
+
+        return f"{base}_{{{under_content}}}^{{{over_content}}}"

@@ -20,6 +20,7 @@ from .usecases import (
     MSubsup,
     MText,
     GenericUnderOver,
+    MUnderover,
 )
 
 
@@ -51,7 +52,7 @@ class MathMLElementToLatexConverterAdapter:
             "msubsup": self._make_msubsup_tag_converter,
             # 'mmultiscripts': ToLatexConverters.MMultiscripts,
             "mtext": MText,
-            # 'munderover': ToLatexConverters.MUnderover,
+            "munderover": self._make_munderover_tag_converter,
             "mtable": self._make_mtable_tag_converter,
             "mtr": self._make_mtr_tag_converter,
             "mover": self._make_generic_under_over_converter,
@@ -88,6 +89,9 @@ class MathMLElementToLatexConverterAdapter:
         self, math_element: MathMLElement
     ) -> GenericUnderOver:
         return GenericUnderOver(math_element, self)
+
+    def _make_munderover_tag_converter(self, math_element: MathMLElement) -> MUnderover:
+        return MUnderover(math_element, self)
 
     def _make_mfrac_tag_converter(self, math_element: MathMLElement) -> MFrac:
         return MFrac(math_element, self)
