@@ -1179,6 +1179,190 @@ mphantom = '''
 </root>
 '''
 
+msup = """
+<root>
+  <math>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+  </math>
+</root>
+"""
+
+msup_with_mrow_on_top = """
+<root>
+  <math>
+    <msup>
+      <mi>x</mi>
+      <mrow>
+        <mn>a</mn>
+        <mo>+</mo>
+        <mn>b</mn>
+      </mrow>
+    </msup>
+  </math>
+</root>
+"""
+
+msup_with_mrow_on_bottom = """
+<root>
+  <math>
+    <msup>
+      <mrow>
+        <mn>x</mn>
+        <mo>+</mo>
+        <mn>y</mn>
+      </mrow>
+      <mi>2</mi>
+    </msup>
+  </math>
+</root>
+"""
+
+msup_with_mrow_on_top_bottom = """
+<root>
+  <math>
+    <msup>
+      <mrow>
+        <mn>x</mn>
+        <mo>+</mo>
+        <mn>y</mn>
+      </mrow>
+      <mrow>
+        <mn>2</mn>
+        <mo>+</mo>
+        <mn>2</mn>
+      </mrow>
+    </msup>
+  </math>
+</root>
+"""
+
+msup_with_three_children = """
+<root>
+  <math>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+      <mn>3</mn>
+    </msup>
+  </math>
+</root>
+"""
+
+msub = """
+<root>
+  <math>
+    <msub>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msub>
+  </math>
+</root>
+"""
+
+msub_with_mrow_on_bottom = """
+<root>
+  <math>
+    <msub>
+      <mi>x</mi>
+      <mrow>
+        <mn>a</mn>
+        <mo>+</mo>
+        <mn>b</mn>
+      </mrow>
+    </msub>
+  </math>
+</root>
+"""
+
+msub_with_mrow_on_top = """
+<root>
+  <math>
+    <msub>
+      <mrow>
+        <mn>x</mn>
+        <mo>+</mo>
+        <mn>y</mn>
+      </mrow>
+      <mi>2</mi>
+    </msub>
+  </math>
+</root>
+"""
+
+msub_with_mrow_on_top_bottom = """
+<root>
+  <math>
+    <msub>
+      <mrow>
+        <mn>x</mn>
+        <mo>+</mo>
+        <mn>y</mn>
+      </mrow>
+      <mrow>
+        <mn>2</mn>
+        <mo>+</mo>
+        <mn>2</mn>
+      </mrow>
+    </msub>
+  </math>
+</root>
+"""
+
+msub_with_three_children = """
+<root>
+  <math>
+    <msub>
+      <mi>x</mi>
+      <mn>2</mn>
+      <mn>3</mn>
+    </msub>
+  </math>
+</root>
+"""
+
+msubsup = """
+<root>
+  <math>
+    <msubsup>
+      <mo> &#x222B; </mo>
+      <mn> 0 </mn>
+      <mn> 1 </mn>
+    </msubsup>
+  </math>
+</root>
+"""
+
+msubsup_with_mrow = """
+<root>
+  <math>
+    <msubsup>
+      <mrow>
+        <mn>x</mn>
+        <mo>+</mo>
+        <mn>y</mn>
+      </mrow>
+      <mn> 0 </mn>
+      <mn> 1 </mn>
+    </msubsup>
+  </math>
+</root>
+"""
+
+msubsup_with_four_children = """
+<root>
+  <math>
+    <msubsup>
+      <mo> &#x222B; </mo>
+      <mn> 0 </mn>
+      <mn> 1 </mn>
+      <mn> 5 </mn>
+    </msubsup>
+  </math>
+</root>
+"""
 
 
 

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/mathml.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/mathml.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
@@ -47,6 +47,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "actions.on.save",
     "ts.external.directory.path": "/Users/asnunes/Applications/PyCharm Professional Edition.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -163,7 +164,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="26520000" />
+      <workItem from="1730573663996" duration="27050000" />
     </task>
     <servers />
   </component>
