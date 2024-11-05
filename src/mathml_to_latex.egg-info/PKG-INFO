@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: mathml-to-latex
+Version: 1.0.0
+Summary: It converts MathML to LaTeX
+Home-page: https://github.com/asnunes/py-mathml-to-latex
+Author: Alexandre Nunes
+Author-email: alexandrenunes@poli.ufrj.br
+Project-URL: Bug Tracker, https://github.com/asnunes/py-mathml-to-latex/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: dataclasses; python_version < "3.7"
+
+# mathml-to-latex
+
+It converts [MathML](https://en.wikipedia.org/wiki/MathML) to [LaTeX](https://pt.wikipedia.org/wiki/LaTeX). 
+Based on the Node.js version of the [mathml-to-latex](https://github.com/asnunes/mathml-to-latex) library.
+
+## Installation
+
+```bash
+pip install mathml-to-latex
+```
+
+## Usage
+
+```python
+```
+
+

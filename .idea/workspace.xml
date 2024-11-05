@@ -5,13 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_latex/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/services/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_latex/mathml_to_latex.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/services/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_latex.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/protocols.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/protocols.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/services/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/MANIFEST.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/services/normalizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/services/normalizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/services/wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/services/wrapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/el_to_tex/usecases.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntax.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/syntax.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/services/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/services/error_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/services/error_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/services/xml_elements_to_mathml_element.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/services/xml_elements_to_mathml_element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,6 +89,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/mathml_to_latex" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -167,7 +200,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="35691000" />
+      <workItem from="1730573663996" duration="37918000" />
     </task>
     <servers />
   </component>
