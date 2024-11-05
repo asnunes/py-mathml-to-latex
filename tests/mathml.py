@@ -1143,6 +1143,17 @@ menclose_notation_phasorangle = """
 </root>
 """
 
+merror = '''
+<root>
+  <math>
+    <merror>
+      <mi>2</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </merror>
+  </math>
+</root>
+'''
 
 
 

@@ -1,6 +1,6 @@
 from src.mathml_to_tex.protocols import MathMLElement, VoidMathMLElement
 from .usecases import Void, MI, MO, MN, Math, MSup, GenericSpacingWrapper, MSqrt, MFenced, MTable, MTr, MSub, MFrac, \
-    MRoot, MAction, MEnclose
+    MRoot, MAction, MEnclose, MError
 
 
 class MathMLElementToLatexConverterAdapter:
@@ -22,7 +22,7 @@ class MathMLElementToLatexConverterAdapter:
             'mroot': self._make_mroot_tag_converter,
             'maction': self._make_maction_tag_converter,
             'menclose': self._make_menclose_tag_converter,
-            # 'merror': ToLatexConverters.MError,
+            'merror': self._make_merror_tag_converter,
             # 'mphantom': ToLatexConverters.MPhantom,
             'msup': self._make_msup_tag_converter,
             'msub': self._make_msub_tag_converter,
@@ -70,6 +70,9 @@ class MathMLElementToLatexConverterAdapter:
 
     def _make_menclose_tag_converter(self, math_element: MathMLElement) -> MEnclose:
         return MEnclose(math_element, self)
+
+    def _make_merror_tag_converter(self, math_element: MathMLElement) -> MError:
+        return MError(math_element, self)
 
     def _make_generic_spacing_wrapper(self, math_element: MathMLElement) -> GenericSpacingWrapper:
         return GenericSpacingWrapper(math_element, self)

@@ -725,3 +725,35 @@ class MEnclose(ToLaTeXConverter):
         if self._notation == 'phasorangle':
             return f'{{\\angle \\underline{{{latex_joined_children}}}}}'
         return f'\\overline{{\\left.\\right){latex_joined_children}}}'
+
+# export class MError implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const latexJoinedChildren = this._mathmlElement.children
+#       .map((child) => mathMLElementToLaTeXConverter(child))
+#       .map((converter) => converter.convert())
+#       .join(' ');
+#
+#     return `\\color{red}{${latexJoinedChildren}}`;
+#   }
+# }
+
+class MError(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        latex_joined_children = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+
+        return f'\\color{{red}}{{{latex_joined_children}}}'
+
+
+
+
+
