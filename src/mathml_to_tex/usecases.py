@@ -445,6 +445,73 @@ class MTr(ToLaTeXConverter):
     def convert(self) -> str:
         return ' & '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
 
+# export class MSub implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
+#
+#     const baseChild = children[0];
+#     const subscriptChild = children[1];
+#
+#     return `${this._handleBaseChild(baseChild)}_${this._handleSubscriptChild(subscriptChild)}`;
+#   }
+#
+#   private _handleBaseChild(base: MathMLElement): string {
+#     const baseChildren = base.children;
+#     const baseStr = mathMLElementToLaTeXConverter(base).convert();
+#
+#     if (baseChildren.length <= 1) {
+#       return baseStr;
+#     }
+#
+#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(baseStr);
+#   }
+#
+#   private _handleSubscriptChild(subscript: MathMLElement): string {
+#     const subscriptStr = mathMLElementToLaTeXConverter(subscript).convert();
+#
+#     return new BracketWrapper().wrap(subscriptStr);
+#   }
+# }
 
+class MSub(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._parenthesis_wrapper = ParenthesisWrapper()
+        self._bracket_wrapper = BracketWrapper()
 
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
 
+        if children_length != 2:
+            raise InvalidNumberOfChildrenError(name, 2, children_length)
+
+        base_child = children[0]
+        subscript_child = children[1]
+
+        return f'{self._handle_base_child(base_child)}_{self._handle_subscript_child(subscript_child)}'
+
+    def _handle_base_child(self, base: MathMLElement) -> str:
+        base_children = base.children
+        base_str = self._adapter.to_latex_converter(base).convert()
+
+        if len(base_children) <= 1:
+            return base_str
+
+        return self._parenthesis_wrapper.wrap_if_more_than_one_char(base_str)
+
+    def _handle_subscript_child(self, subscript: MathMLElement) -> str:
+        subscript_str = self._adapter.to_latex_converter(subscript).convert()
+
+        return self._bracket_wrapper.wrap(subscript_str)

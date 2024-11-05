@@ -197,20 +197,20 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(mfenced_as_partial_function)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_with_nested_mtables(self):
-    #     expected_latex = (
-    #         '\\begin{bmatrix} \\begin{matrix}a_{11} & a_{12}\\end{matrix} & '
-    #         '\\begin{matrix}\\ldots & \\ldots\\end{matrix} & a_{1 n} \\\\ '
-    #         '\\begin{matrix}a_{21} & a_{22}\\end{matrix} & '
-    #         '\\begin{matrix}\\ddots & \\end{matrix} & a_{2 n} \\\\ '
-    #         '\\begin{matrix}\\begin{matrix}\\vdots & \\vdots\\end{matrix} \\\\ '
-    #         '\\begin{matrix}a_{m 1} & a_{m 2}\\end{matrix}\\end{matrix} & '
-    #         '\\begin{matrix}\\begin{matrix} & \\ddots\\end{matrix} \\\\ '
-    #         '\\begin{matrix}\\ldots & \\ldots\\end{matrix}\\end{matrix} & '
-    #         '\\begin{matrix}\\vdots \\\\ a_{m n}\\end{matrix} \\end{bmatrix}'
-    #     )
-    #     result = self.converter.convert(mfenced_with_nested_mtables)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_with_nested_mtables(self):
+        expected_latex = (
+            '\\begin{bmatrix} \\begin{matrix}a_{11} & a_{12}\\end{matrix} & '
+            '\\begin{matrix}\\ldots & \\ldots\\end{matrix} & a_{1 n} \\\\ '
+            '\\begin{matrix}a_{21} & a_{22}\\end{matrix} & '
+            '\\begin{matrix}\\ddots & \\end{matrix} & a_{2 n} \\\\ '
+            '\\begin{matrix}\\begin{matrix}\\vdots & \\vdots\\end{matrix} \\\\ '
+            '\\begin{matrix}a_{m 1} & a_{m 2}\\end{matrix}\\end{matrix} & '
+            '\\begin{matrix}\\begin{matrix} & \\ddots\\end{matrix} \\\\ '
+            '\\begin{matrix}\\ldots & \\ldots\\end{matrix}\\end{matrix} & '
+            '\\begin{matrix}\\vdots \\\\ a_{m n}\\end{matrix} \\end{bmatrix}'
+        )
+        result = self.converter.convert(mfenced_with_nested_mtables)
+        self.assertEqual(result, expected_latex)
 
     # def test_convert_mfrac_simple(self):
     #     expected_latex = '\\frac{x}{3}'
