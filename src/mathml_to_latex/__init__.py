@@ -1,1 +1,1 @@
-from .mathml_to_latex import MathMLToLaTeX
+from .converter import MathMLToLaTeX
