@@ -16,8 +16,12 @@ from tests.mathml import (
     mfenced_as_bmatrix, mfenced_as_pmatrix, mfenced_as_vmatrix, mfenced_as_big_bmatrix, mfenced_as_big_vmatrix,
     mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables, mfrac_with_three_children,
     short_m_frac, mfrac_with_mrow, mfrac, mroot, mroot_with_three_children, mpadded, maction, maction_with_mrow,
-    maction_type_toggle, maction_type_statusline, maction_type_tooltip,
-
+    maction_type_toggle, maction_type_statusline, maction_type_tooltip, menclose, menclose_notation_longdiv,
+    menclose_notation_actuarial, menclose_notation_radical, menclose_notation_box, menclose_notation_rounded_box,
+    menclose_notation_circle, menclose_notation_left, menclose_notation_right, menclose_notation_top,
+    menclose_notation_bottom, menclose_notation_updiagnonalstrike, menclose_notation_horizontalstrike,
+    menclose_notation_verticalstrike, menclose_notation_downdiagnonalstrike,
+    menclose_notation_updiagnonalarrow, menclose_notation_madruwb, menclose_notation_phasorangle,
 )
 
 
@@ -273,96 +277,96 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(maction_type_tooltip)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_menclose_default(self):
-    #     expected_latex = '\\overline{\\left.\\right)a + 2}'
-    #     result = self.converter.convert(menclose)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_longdiv(self):
-    #     expected_latex = '\\overline{\\left.\\right)a + 2}'
-    #     result = self.converter.convert(menclose_notation_longdiv)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_actuarial(self):
-    #     expected_latex = '\\overline{\\left.a + 2\\right|}'
-    #     result = self.converter.convert(menclose_notation_actuarial)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_radical(self):
-    #     expected_latex = '\\sqrt{a + 2}'
-    #     result = self.converter.convert(menclose_notation_radical)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_box(self):
-    #     expected_latex = '\\boxed{E = m c^{2}}'
-    #     result = self.converter.convert(menclose_notation_box)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_rounded_box(self):
-    #     expected_latex = '\\boxed{E = m c^{2}}'
-    #     result = self.converter.convert(menclose_notation_rounded_box)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_circle(self):
-    #     expected_latex = '\\boxed{E = m c^{2}}'
-    #     result = self.converter.convert(menclose_notation_circle)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_left(self):
-    #     expected_latex = '\\left|E = m c^{2}'
-    #     result = self.converter.convert(menclose_notation_left)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_right(self):
-    #     expected_latex = 'E = m c^{2}\\right|'
-    #     result = self.converter.convert(menclose_notation_right)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_top(self):
-    #     expected_latex = '\\overline{E = m c^{2}}'
-    #     result = self.converter.convert(menclose_notation_top)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_bottom(self):
-    #     expected_latex = '\\underline{a + 2}'
-    #     result = self.converter.convert(menclose_notation_bottom)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_updiagnonalstrike(self):
-    #     expected_latex = '\\cancel{a + 2}'
-    #     result = self.converter.convert(menclose_notation_updiagnonalstrike)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_downdiagonalstrike(self):
-    #     expected_latex = '\\bcancel{a + 2}'
-    #     result = self.converter.convert(menclose_notation_downdiagonalstrike)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_horizontalstrike(self):
-    #     expected_latex = '\\hcancel{a + 2}'
-    #     result = self.converter.convert(menclose_notation_horizontalstrike)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_verticalstrike(self):
-    #     expected_latex = '\\hcancel{a + 2}'
-    #     result = self.converter.convert(menclose_notation_verticalstrike)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_updiagnonalarrow(self):
-    #     expected_latex = '\\cancelto{}{a + 2}'
-    #     result = self.converter.convert(menclose_notation_updiagnonalarrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_madruwb(self):
-    #     expected_latex = '\\underline{a + 2\\right|}'
-    #     result = self.converter.convert(menclose_notation_madruwb)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_menclose_phasorangle(self):
-    #     expected_latex = '{\\angle \\underline{a + 2}}'
-    #     result = self.converter.convert(menclose_notation_phasorangle)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_menclose_default(self):
+        expected_latex = '\\overline{\\left.\\right)a + 2}'
+        result = self.converter.convert(menclose)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_longdiv(self):
+        expected_latex = '\\overline{\\left.\\right)a + 2}'
+        result = self.converter.convert(menclose_notation_longdiv)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_actuarial(self):
+        expected_latex = '\\overline{\\left.a + 2\\right|}'
+        result = self.converter.convert(menclose_notation_actuarial)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_radical(self):
+        expected_latex = '\\sqrt{a + 2}'
+        result = self.converter.convert(menclose_notation_radical)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_box(self):
+        expected_latex = '\\boxed{E = m c^{2}}'
+        result = self.converter.convert(menclose_notation_box)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_rounded_box(self):
+        expected_latex = '\\boxed{E = m c^{2}}'
+        result = self.converter.convert(menclose_notation_rounded_box)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_circle(self):
+        expected_latex = '\\boxed{E = m c^{2}}'
+        result = self.converter.convert(menclose_notation_circle)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_left(self):
+        expected_latex = '\\left|E = m c^{2}'
+        result = self.converter.convert(menclose_notation_left)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_right(self):
+        expected_latex = 'E = m c^{2}\\right|'
+        result = self.converter.convert(menclose_notation_right)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_top(self):
+        expected_latex = '\\overline{E = m c^{2}}'
+        result = self.converter.convert(menclose_notation_top)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_bottom(self):
+        expected_latex = '\\underline{a + 2}'
+        result = self.converter.convert(menclose_notation_bottom)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_updiagnonalstrike(self):
+        expected_latex = '\\cancel{a + 2}'
+        result = self.converter.convert(menclose_notation_updiagnonalstrike)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_downdiagonalstrike(self):
+        expected_latex = '\\bcancel{a + 2}'
+        result = self.converter.convert(menclose_notation_downdiagnonalstrike)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_horizontalstrike(self):
+        expected_latex = '\\hcancel{a + 2}'
+        result = self.converter.convert(menclose_notation_horizontalstrike)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_verticalstrike(self):
+        expected_latex = '\\hcancel{a + 2}'
+        result = self.converter.convert(menclose_notation_verticalstrike)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_updiagnonalarrow(self):
+        expected_latex = '\\cancelto{}{a + 2}'
+        result = self.converter.convert(menclose_notation_updiagnonalarrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_madruwb(self):
+        expected_latex = '\\underline{a + 2\\right|}'
+        result = self.converter.convert(menclose_notation_madruwb)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_menclose_phasorangle(self):
+        expected_latex = '{\\angle \\underline{a + 2}}'
+        result = self.converter.convert(menclose_notation_phasorangle)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_merror(self):
     #     expected_latex = '\\color{red}{2 + 2}'
     #     result = self.converter.convert(merror)

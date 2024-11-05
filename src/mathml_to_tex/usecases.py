@@ -653,3 +653,75 @@ class MAction(ToLaTeXConverter):
     def _is_toggle(self) -> bool:
         action_type = self._math_element.attributes.get('actiontype')
         return action_type == 'toggle' or not action_type
+
+# export class MEnclose implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const latexJoinedChildren = this._mathmlElement.children
+#       .map((child) => mathMLElementToLaTeXConverter(child))
+#       .map((converter) => converter.convert())
+#       .join(' ');
+#
+#     if (this._notation === 'actuarial') return `\\overline{\\left.${latexJoinedChildren}\\right|}`;
+#     if (this._notation === 'radical') return `\\sqrt{${latexJoinedChildren}}`;
+#     if (['box', 'roundedbox', 'circle'].includes(this._notation)) return `\\boxed{${latexJoinedChildren}}`;
+#     if (this._notation === 'left') return `\\left|${latexJoinedChildren}`;
+#     if (this._notation === 'right') return `${latexJoinedChildren}\\right|`;
+#     if (this._notation === 'top') return `\\overline{${latexJoinedChildren}}`;
+#     if (this._notation === 'bottom') return `\\underline{${latexJoinedChildren}}`;
+#     if (this._notation === 'updiagonalstrike') return `\\cancel{${latexJoinedChildren}}`;
+#     if (this._notation === 'downdiagonalstrike') return `\\bcancel{${latexJoinedChildren}}`;
+#     if (this._notation === 'updiagonalarrow') return `\\cancelto{}{${latexJoinedChildren}}`;
+#     if (['verticalstrike', 'horizontalstrike'].includes(this._notation)) return `\\hcancel{${latexJoinedChildren}}`;
+#     if (this._notation === 'madruwb') return `\\underline{${latexJoinedChildren}\\right|}`;
+#     if (this._notation === 'phasorangle') return `{\\angle \\underline{${latexJoinedChildren}}}`;
+#
+#     return `\\overline{\\left.\\right)${latexJoinedChildren}}`;
+#   }
+#
+#   private get _notation(): string {
+#     return this._mathmlElement.attributes.notation || 'longdiv';
+#   }
+# }
+
+class MEnclose(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._notation = self._math_element.attributes.get('notation', 'longdiv')
+
+    def convert(self) -> str:
+        latex_joined_children = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+
+        if self._notation == 'actuarial':
+            return f'\\overline{{\\left.{latex_joined_children}\\right|}}'
+        if self._notation == 'radical':
+            return f'\\sqrt{{{latex_joined_children}}}'
+        if self._notation in ['box', 'roundedbox', 'circle']:
+            return f'\\boxed{{{latex_joined_children}}}'
+        if self._notation == 'left':
+            return f'\\left|{latex_joined_children}'
+        if self._notation == 'right':
+            return f'{latex_joined_children}\\right|'
+        if self._notation == 'top':
+            return f'\\overline{{{latex_joined_children}}}'
+        if self._notation == 'bottom':
+            return f'\\underline{{{latex_joined_children}}}'
+        if self._notation == 'updiagonalstrike':
+            return f'\\cancel{{{latex_joined_children}}}'
+        if self._notation == 'downdiagonalstrike':
+            return f'\\bcancel{{{latex_joined_children}}}'
+        if self._notation == 'updiagonalarrow':
+            return f'\\cancelto{{}}{{{latex_joined_children}}}'
+        if self._notation in ['verticalstrike', 'horizontalstrike']:
+            return f'\\hcancel{{{latex_joined_children}}}'
+        if self._notation == 'madruwb':
+            return f'\\underline{{{latex_joined_children}\\right|}}'
+        if self._notation == 'phasorangle':
+            return f'{{\\angle \\underline{{{latex_joined_children}}}}}'
+        return f'\\overline{{\\left.\\right){latex_joined_children}}}'

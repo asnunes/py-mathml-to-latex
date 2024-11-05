@@ -891,6 +891,259 @@ maction_type_tooltip = '''
 </root>
 '''
 
+menclose = """
+<root>
+  <math>
+    <menclose>
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_longdiv = """
+<root>
+  <math>
+    <menclose notation="longdiv">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_actuarial = """
+<root>
+  <math>
+    <menclose notation="actuarial">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_radical = """
+<root>
+  <math>
+    <menclose notation="radical">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_box = """
+<root>
+  <math>
+    <menclose notation="box">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_rounded_box = """
+<root>
+  <math>
+    <menclose notation="roundedbox">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_circle = """
+<root>
+  <math>
+    <menclose notation="circle">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_left = """
+<root>
+  <math>
+    <menclose notation="left">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_right = """
+<root>
+  <math>
+    <menclose notation="right">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_top = """
+<root>
+  <math>
+    <menclose notation="top">
+      <mrow>
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </mrow>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_bottom = """
+<root>
+  <math>
+    <menclose notation="bottom">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_updiagnonalstrike = """
+<root>
+  <math>
+    <menclose notation="updiagonalstrike">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_downdiagnonalstrike = """
+<root>
+  <math>
+    <menclose notation="downdiagonalstrike">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_horizontalstrike = """
+<root>
+  <math>
+    <menclose notation="horizontalstrike">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_verticalstrike = """
+<root>
+  <math>
+    <menclose notation="verticalstrike">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_updiagnonalarrow = """
+<root>
+  <math>
+    <menclose notation="updiagonalarrow">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_madruwb = """
+<root>
+  <math>
+    <menclose notation="madruwb">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+menclose_notation_phasorangle = """
+<root>
+  <math>
+    <menclose notation="phasorangle">
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>2</mi>
+    </menclose>
+  </math>
+</root>
+"""
+
+
 
 
 
