@@ -73,6 +73,7 @@ from tests.mathml import (
     msup_with_mrow_on_top_bottom,
     msup_with_three_children,
     msup,
+    msub, msub_with_mrow_on_bottom, msub_with_mrow_on_top, msub_with_mrow_on_top_bottom, msub_with_three_children,
 )
 
 
@@ -457,30 +458,30 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(msup_with_three_children)
 
-    # def test_convert_msub_single(self):
-    #     expected_latex = 'x_{2}'
-    #     result = self.converter.convert(msub)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_msub_with_mrow_on_bottom(self):
-    #     expected_latex = 'x_{a + b}'
-    #     result = self.converter.convert(msub_with_mrow_on_bottom)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_msub_with_mrow_on_top(self):
-    #     expected_latex = '\\left(x + y\\right)_{2}'
-    #     result = self.converter.convert(msub_with_mrow_on_top)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_msub_with_mrow_on_top_bottom(self):
-    #     expected_latex = '\\left(x + y\\right)_{2 + 2}'
-    #     result = self.converter.convert(msub_with_mrow_on_top_bottom)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_msub_with_three_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(msub_with_three_children)
-    #
+    def test_convert_msub_single(self):
+        expected_latex = "x_{2}"
+        result = self.converter.convert(msub)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_msub_with_mrow_on_bottom(self):
+        expected_latex = "x_{a + b}"
+        result = self.converter.convert(msub_with_mrow_on_bottom)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_msub_with_mrow_on_top(self):
+        expected_latex = "\\left(x + y\\right)_{2}"
+        result = self.converter.convert(msub_with_mrow_on_top)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_msub_with_mrow_on_top_bottom(self):
+        expected_latex = "\\left(x + y\\right)_{2 + 2}"
+        result = self.converter.convert(msub_with_mrow_on_top_bottom)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_msub_with_three_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(msub_with_three_children)
+
     # def test_convert_msubsup(self):
     #     expected_latex = '\\int_{0}^{1}'
     #     result = self.converter.convert(msubsup)
