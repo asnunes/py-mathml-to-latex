@@ -55,7 +55,7 @@ class MathMLElementToLatexConverterAdapter:
             "mtable": self._make_mtable_tag_converter,
             "mtr": self._make_mtr_tag_converter,
             "mover": self._make_generic_under_over_converter,
-            # 'munder': ToLatexConverters.GenericUnderOver,
+            "munder": self._make_generic_under_over_converter,
             "mrow": self._make_generic_spacing_wrapper,
             "mpadded": self._make_generic_spacing_wrapper,
         }

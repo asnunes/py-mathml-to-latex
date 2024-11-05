@@ -1212,7 +1212,7 @@ class GenericUnderOver(ToLaTeXConverter):
     def _apply_command(self, content: str, accent: str) -> str:
         ty = (
             TagTypes.Under
-            if re.match(r"under", self._math_element.name)
+            if re.search(r"under", self._math_element.name)
             else TagTypes.Over
         )
         return UnderOverSetter(ty).apply(content, accent)

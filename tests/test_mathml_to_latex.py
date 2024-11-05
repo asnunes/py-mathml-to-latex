@@ -95,6 +95,9 @@ from tests.mathml import (
     mover_encoded_mo,
     mover_double_mrow,
     mover_three_children,
+    munder,
+    munder_double_mrow,
+    munder_encoded_mrow,
 )
 
 
@@ -586,21 +589,21 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(mover_three_children)
 
-    # def test_convert_munder_underbrace(self):
-    #     expected_latex = '\\underbrace{x + y + z}'
-    #     result = self.converter.convert(munder)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_munder_double_mrow(self):
-    #     expected_latex = '\\underset{a + b}{x + y + z}'
-    #     result = self.converter.convert(munder_double_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_munder_encoded_mrow(self):
-    #     expected_latex = '\\underbrace{x + y + z}'
-    #     result = self.converter.convert(munder_encoded_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_munder_underbrace(self):
+        expected_latex = "\\underbrace{x + y + z}"
+        result = self.converter.convert(munder)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_munder_double_mrow(self):
+        expected_latex = "\\underset{a + b}{x + y + z}"
+        result = self.converter.convert(munder_double_mrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_munder_encoded_mrow(self):
+        expected_latex = "\\underbrace{x + y + z}"
+        result = self.converter.convert(munder_encoded_mrow)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_munderover(self):
     #     expected_latex = '\\int_{0}^{1}'
     #     result = self.converter.convert(munderover)
