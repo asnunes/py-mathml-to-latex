@@ -2,7 +2,7 @@ from typing import Optional, List
 import re
 from enum import Enum
 
-from src.mathml_to_latex.syntax import (
+from ..syntax import (
     HashUTF8ToLtXConverter,
     all_math_symbols_by_char,
     all_math_symbols_by_glyph,
