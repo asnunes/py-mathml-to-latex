@@ -23,7 +23,7 @@ class MathMLElementToLatexConverterAdapter:
             'maction': self._make_maction_tag_converter,
             'menclose': self._make_menclose_tag_converter,
             'merror': self._make_merror_tag_converter,
-            # 'mphantom': ToLatexConverters.MPhantom,
+            'mphantom': Void,
             'msup': self._make_msup_tag_converter,
             'msub': self._make_msub_tag_converter,
             # 'msubsup': ToLatexConverters.MSubsup,
