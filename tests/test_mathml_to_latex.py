@@ -162,40 +162,40 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(mfenced_with_diff_separators)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_bmatrix(self):
-    #     expected_latex = 'A = \\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}'
-    #     result = self.converter.convert(mfenced_as_bmatrix)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_bmatrix(self):
+        expected_latex = 'A = \\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}'
+        result = self.converter.convert(mfenced_as_bmatrix)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_pmatrix(self):
-    #     expected_latex = 'A = \\begin{pmatrix} x & y \\\\ z & w \\end{pmatrix}'
-    #     result = self.converter.convert(mfenced_as_pmatrix)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_pmatrix(self):
+        expected_latex = 'A = \\begin{pmatrix} x & y \\\\ z & w \\end{pmatrix}'
+        result = self.converter.convert(mfenced_as_pmatrix)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_vmatrix(self):
-    #     expected_latex = 'A = \\begin{vmatrix} x & y \\\\ z & w \\end{vmatrix}'
-    #     result = self.converter.convert(mfenced_as_vmatrix)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_vmatrix(self):
+        expected_latex = 'A = \\begin{vmatrix} x & y \\\\ z & w \\end{vmatrix}'
+        result = self.converter.convert(mfenced_as_vmatrix)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_big_bmatrix(self):
-    #     expected_latex = 'A = \\begin{Bmatrix} x & y \\\\ z & w \\end{Bmatrix}'
-    #     result = self.converter.convert(mfenced_as_big_bmatrix)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_big_bmatrix(self):
+        expected_latex = 'A = \\begin{Bmatrix} x & y \\\\ z & w \\end{Bmatrix}'
+        result = self.converter.convert(mfenced_as_big_bmatrix)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_big_vmatrix(self):
-    #     expected_latex = 'A = \\begin{Vmatrix} x & y \\\\ z & w \\end{Vmatrix}'
-    #     result = self.converter.convert(mfenced_as_big_vmatrix)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_big_vmatrix(self):
+        expected_latex = 'A = \\begin{Vmatrix} x & y \\\\ z & w \\end{Vmatrix}'
+        result = self.converter.convert(mfenced_as_big_vmatrix)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_matrix(self):
-    #     expected_latex = 'A = \\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}'
-    #     result = self.converter.convert(mfenced_as_matrix)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_matrix(self):
+        expected_latex = 'A = \\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}'
+        result = self.converter.convert(mfenced_as_matrix)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_as_partial_function(self):
-    #     expected_latex = 'f \\left(x\\right) = \\left{\\begin{matrix} x^{2} , x < 0 \\\\ e^{x} , x \\geq 0 \\end{matrix}\\right'
-    #     result = self.converter.convert(mfenced_as_partial_function)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mfenced_as_partial_function(self):
+        expected_latex = 'f \\left(x\\right) = \\left{\\begin{matrix} x^{2} , x < 0 \\\\ e^{x} , x \\geq 0 \\end{matrix}\\right'
+        result = self.converter.convert(mfenced_as_partial_function)
+        self.assertEqual(result, expected_latex)
 
     # def test_convert_mfenced_with_nested_mtables(self):
     #     expected_latex = (

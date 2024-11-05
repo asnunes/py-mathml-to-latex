@@ -329,7 +329,7 @@ class Matrix:
         command = self._command
         matrix = f'\\begin{{{command}}}\n{"".join(latex_contents)}\n\\end{{{command}}}'
 
-        return self._separators.wrap(matrix)
+        return self._separators.wrap(matrix) if command == self._generic_command else matrix
 
     @property
     def _command(self):
@@ -365,3 +365,86 @@ class MFenced(ToLaTeXConverter):
 
     def _is_there_relative_of_name(self, mathml_elements, element_name):
         return any([child.name == element_name or self._is_there_relative_of_name(child.children, element_name) for child in mathml_elements])
+
+# export class MTable implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#     this._addFlagRecursiveIfName(this._mathmlElement.children, 'mtable', 'innerTable');
+#   }
+#
+#   convert(): string {
+#     const tableContent = this._mathmlElement.children
+#       .map((child) => mathMLElementToLaTeXConverter(child))
+#       .map((converter) => converter.convert())
+#       .join(' \\\\\n');
+#
+#     return this._hasFlag('innerTable') ? this._wrap(tableContent) : tableContent;
+#   }
+#
+#   private _wrap(latex: string): string {
+#     return `\\begin{matrix}${latex}\\end{matrix}`;
+#   }
+#
+#   private _addFlagRecursiveIfName(mathmlElements: MathMLElement[], name: string, flag: string): void {
+#     mathmlElements.forEach((mathmlElement) => {
+#       if (mathmlElement.name === name) mathmlElement.attributes[flag] = flag;
+#       this._addFlagRecursiveIfName(mathmlElement.children, name, flag);
+#     });
+#   }
+#
+#   private _hasFlag(flag: string): boolean {
+#     return !!this._mathmlElement.attributes[flag];
+#   }
+# }
+
+class MTable(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._add_flag_recursive_if_name(self._math_element.children, 'mtable', 'innerTable')
+
+    def convert(self) -> str:
+        table_content = ' \\\\\n'.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+
+        return self._wrap(table_content) if self._has_flag('innerTable') else table_content
+
+    def _wrap(self, latex: str) -> str:
+        return f'\\begin{{matrix}}{latex}\\end{{matrix}}'
+
+    def _add_flag_recursive_if_name(self, mathml_elements, name, flag):
+        for mathml_element in mathml_elements:
+            if mathml_element.name == name:
+                mathml_element.attributes[flag] = flag
+            self._add_flag_recursive_if_name(mathml_element.children, name, flag)
+
+    def _has_flag(self, flag: str) -> bool:
+        return bool(self._math_element.attributes.get(flag))
+
+# export class MTr implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     return this._mathmlElement.children
+#       .map((child) => mathMLElementToLaTeXConverter(child))
+#       .map((converter) => converter.convert())
+#       .join(' & ');
+#   }
+# }
+
+class MTr(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        return ' & '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+
+
+
+

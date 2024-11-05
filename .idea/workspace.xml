@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xml_to_mathml/adapter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xml_to_mathml/services/error_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xml_to_mathml/services/error_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_tex/usecases.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_broken_close.executor": "Debug",
+    "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_as_bmatrix.executor": "Run",
+    "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_broken_close.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_without_attribute.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mi_to_simple_text.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -49,7 +51,23 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_broken_close">
+  <component name="RunManager" selected="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_nested_mtables">
+    <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_as_bmatrix" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="py-mathml-to-latex" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_as_bmatrix&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_broken_close" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="py-mathml-to-latex" />
       <option name="ENV_FILES" value="" />
@@ -63,6 +81,22 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_broken_close&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_nested_mtables" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="py-mathml-to-latex" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_nested_mtables&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -100,6 +134,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_nested_mtables" />
+        <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_as_bmatrix" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_with_broken_close" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mfenced_without_attribute" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mi_to_simple_text" />
@@ -122,30 +158,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="22572000" />
+      <workItem from="1730573663996" duration="24113000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/mathml_to_tex/usecases.py</url>
-          <line>355</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/xml_to_mathml/adapter.py</url>
-          <line>37</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/py_mathml_to_latex$.coverage" NAME=" Coverage Results" MODIFIED="1730769800701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/py_mathml_to_latex$.coverage" NAME=" Coverage Results" MODIFIED="1730804891320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
 </project>
