@@ -776,11 +776,120 @@ mpadded = '''
 </root>
 '''
 
+maction = '''
+<root>
+  <math>
+    <maction>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mrow>
+        <mi>b</mi>
+        <mo>-</mo>
+        <mi>3</mi>
+      </mrow>
+    </maction>
+  </math>
+</root>
+'''
 
+maction_with_mrow = '''
+<root>
+  <math>
+    <maction>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mrow>
+        <mi>b</mi>
+        <mo>-</mo>
+        <mi>3</mi>
+      </mrow>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>b</mi>
+      </mrow>
+    </maction>
+  </math>
+</root>
+'''
 
+maction_type_toggle = '''
+<root>
+  <math>
+    <maction actiontype="toggle">
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mrow>
+        <mi>b</mi>
+        <mo>-</mo>
+        <mi>3</mi>
+      </mrow>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>b</mi>
+      </mrow>
+    </maction>
+  </math>
+</root>
+'''
 
+maction_type_statusline = '''
+<root>
+  <math>
+    <maction actiontype="statusline">
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mrow>
+        <mi>b</mi>
+        <mo>-</mo>
+        <mi>3</mi>
+      </mrow>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>b</mi>
+      </mrow>
+    </maction>
+  </math>
+</root>
+'''
 
-
+maction_type_tooltip = '''
+<root>
+  <math>
+    <maction actiontype="tooltip">
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mrow>
+        <mi>b</mi>
+        <mo>-</mo>
+        <mi>3</mi>
+      </mrow>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>b</mi>
+      </mrow>
+    </maction>
+  </math>
+</root>
+'''
 
 
 

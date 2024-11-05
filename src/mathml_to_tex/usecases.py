@@ -611,3 +611,45 @@ class MRoot(ToLaTeXConverter):
         root_index = self._adapter.to_latex_converter(children[1]).convert()
 
         return f'\\sqrt[{root_index}]{{{content}}}'
+
+# export class MAction implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { children } = this._mathmlElement;
+#
+#     if (this._isToggle())
+#       return children
+#         .map((child) => mathMLElementToLaTeXConverter(child))
+#         .map((converter) => converter.convert())
+#         .join(' \\Longrightarrow ');
+#
+#     return mathMLElementToLaTeXConverter(children[0]).convert();
+#   }
+#
+#   private _isToggle(): boolean {
+#     const { actiontype } = this._mathmlElement.attributes;
+#     return actiontype === 'toggle' || !actiontype;
+#   }
+# }
+
+class MAction(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        children = self._math_element.children
+
+        if self._is_toggle():
+            return ' \\Longrightarrow '.join([self._adapter.to_latex_converter(child).convert() for child in children])
+
+        return self._adapter.to_latex_converter(children[0]).convert()
+
+    def _is_toggle(self) -> bool:
+        action_type = self._math_element.attributes.get('actiontype')
+        return action_type == 'toggle' or not action_type

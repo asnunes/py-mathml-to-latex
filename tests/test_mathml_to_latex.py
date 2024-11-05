@@ -15,7 +15,8 @@ from tests.mathml import (
     mfenced_with_wrapped_content, mfenced_with_empty_separator, mfenced_with_separator, mfenced_with_diff_separators,
     mfenced_as_bmatrix, mfenced_as_pmatrix, mfenced_as_vmatrix, mfenced_as_big_bmatrix, mfenced_as_big_vmatrix,
     mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables, mfrac_with_three_children,
-    short_m_frac, mfrac_with_mrow, mfrac, mroot, mroot_with_three_children, mpadded,
+    short_m_frac, mfrac_with_mrow, mfrac, mroot, mroot_with_three_children, mpadded, maction, maction_with_mrow,
+    maction_type_toggle, maction_type_statusline, maction_type_tooltip,
 
 )
 
@@ -247,31 +248,31 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(mpadded)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_maction_toggle(self):
-    #     expected_latex = 'a + 2 \\Longrightarrow b - 3'
-    #     result = self.converter.convert(maction)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_maction_with_mrow(self):
-    #     expected_latex = 'a + 2 \\Longrightarrow b - 3'
-    #     result = self.converter.convert(maction_with_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_maction_type_toggle(self):
-    #     expected_latex = 'a + 2 \\Longrightarrow b - 3'
-    #     result = self.converter.convert(maction_type_toggle)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_maction_type_statusline(self):
-    #     expected_latex = 'a + 2'
-    #     result = self.converter.convert(maction_type_statusline)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_maction_type_tooltip(self):
-    #     expected_latex = 'a + 2'
-    #     result = self.converter.convert(maction_type_tooltip)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_maction_toggle(self):
+        expected_latex = 'a + 2 \\Longrightarrow b - 3'
+        result = self.converter.convert(maction)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_maction_with_mrow(self):
+        expected_latex = 'a + 2 \\Longrightarrow b - 3 \\Longrightarrow a + b'
+        result = self.converter.convert(maction_with_mrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_maction_type_toggle(self):
+        expected_latex = 'a + 2 \\Longrightarrow b - 3 \\Longrightarrow a + b'
+        result = self.converter.convert(maction_type_toggle)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_maction_type_statusline(self):
+        expected_latex = 'a + 2'
+        result = self.converter.convert(maction_type_statusline)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_maction_type_tooltip(self):
+        expected_latex = 'a + 2'
+        result = self.converter.convert(maction_type_tooltip)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_menclose_default(self):
     #     expected_latex = '\\overline{\\left.\\right)a + 2}'
     #     result = self.converter.convert(menclose)
