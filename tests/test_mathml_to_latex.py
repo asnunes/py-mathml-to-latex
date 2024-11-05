@@ -21,7 +21,7 @@ from tests.mathml import (
     menclose_notation_circle, menclose_notation_left, menclose_notation_right, menclose_notation_top,
     menclose_notation_bottom, menclose_notation_updiagnonalstrike, menclose_notation_horizontalstrike,
     menclose_notation_verticalstrike, menclose_notation_downdiagnonalstrike,
-    menclose_notation_updiagnonalarrow, menclose_notation_madruwb, menclose_notation_phasorangle, merror,
+    menclose_notation_updiagnonalarrow, menclose_notation_madruwb, menclose_notation_phasorangle, merror, mglyph,
 )
 
 
@@ -372,11 +372,11 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(merror)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_mglyph(self):
-    #     expected_latex = ''
-    #     result = self.converter.convert(mglyph)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_mglyph(self):
+        expected_latex = ''
+        result = self.converter.convert(mglyph)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_mphantom(self):
     #     expected_latex = 'x + z'
     #     result = self.converter.convert(mphantom)

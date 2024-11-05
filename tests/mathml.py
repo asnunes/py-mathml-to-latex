@@ -1155,7 +1155,13 @@ merror = '''
 </root>
 '''
 
-
+mglyph = '''
+<root>
+  <math>
+    <mi><mglyph src="my-glyph.png" alt="my glyph"/></mi>
+  </math>
+</root>
+'''
 
 
 
