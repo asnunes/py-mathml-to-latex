@@ -2,9 +2,9 @@ from typing import List
 from xml.dom.minidom import parseString, Element
 import re
 
-from src.mathml_to_latex.el_to_tex.protocols import MathMLElement
-from src.mathml_to_latex.xml_to_mathml.services.error_handler import ErrorHandler
-from src.mathml_to_latex.xml_to_mathml.services.xml_elements_to_mathml_element import (
+from ..el_to_tex.protocols import MathMLElement
+from .services.error_handler import ErrorHandler
+from .services.xml_elements_to_mathml_element import (
     ElementsToMathMLAdapter,
 )
 

@@ -1,7 +1,7 @@
 from typing import List, Dict
 from xml.dom.minidom import Element as DOMElement, Node
 
-from src.mathml_to_latex.el_to_tex.protocols import MathMLElement, GenericMathMLElement
+from ...el_to_tex.protocols import MathMLElement, GenericMathMLElement
 
 
 class ElementsToMathMLAdapter:

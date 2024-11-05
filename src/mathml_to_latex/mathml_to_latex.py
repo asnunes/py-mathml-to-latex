@@ -1,5 +1,5 @@
-from src.mathml_to_latex.el_to_tex.adapter import MathMLElementToLatexConverterAdapter
-from src.mathml_to_latex.xml_to_mathml.factory import make_xml_to_mathml_adapter
+from .el_to_tex.adapter import MathMLElementToLatexConverterAdapter
+from .xml_to_mathml.factory import make_xml_to_mathml_adapter
 
 
 class MathMLToLaTeX:

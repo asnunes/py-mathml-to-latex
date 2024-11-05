@@ -1,5 +1,4 @@
 from xml.parsers.expat import ExpatError
-from typing import List
 import re
 
 
@@ -21,21 +20,22 @@ class ErrorHandler:
         pattern = self._math_generic_missing_value()
         while re.search(pattern, xml):
             # Replace the matched pattern by removing the missing attribute value
-            result = re.sub(pattern, r'\1\3', xml)
+            result = re.sub(pattern, r"\1\3", xml)
         return result
 
     def _fix_missing_attribute_value(self, error: ExpatError, xml: str):
         error_code = error.code
-        if error_code != 4: return xml
+        if error_code != 4:
+            return xml
 
         error_line = error.lineno
         error_offset = error.offset
 
-        goal_line = xml.split('\n')[error_line - 1]
+        goal_line = xml.split("\n")[error_line - 1]
         word = self._get_word_at_str_pos(goal_line, error_offset)
 
         pattern = self._match_missing_value_for_attribute(word)
-        return re.sub(pattern, '', xml)
+        return re.sub(pattern, "", xml)
 
     def _match_missing_value_for_attribute(self, attribute: str) -> re.Pattern:
         """
@@ -43,7 +43,9 @@ class ErrorHandler:
         without a value (i.e., attribute= not followed by " or ').
         """
         escaped_attribute = re.escape(attribute)
-        regex_pattern = rf'({escaped_attribute}=(?!(["\'])))|({escaped_attribute}(?!(["\'])))'
+        regex_pattern = (
+            rf'({escaped_attribute}=(?!(["\'])))|({escaped_attribute}(?!(["\'])))'
+        )
         return re.compile(regex_pattern, re.MULTILINE)
 
     def _math_generic_missing_value(self) -> re.Pattern:
@@ -63,8 +65,8 @@ class ErrorHandler:
         """
         start = pos
         end = pos
-        while start > 0 and string[start - 1] != ' ':
+        while start > 0 and string[start - 1] != " ":
             start -= 1
-        while end < len(string) and string[end] != ' ' and string[end] != '>':
+        while end < len(string) and string[end] != " " and string[end] != ">":
             end += 1
         return string[start:end]

@@ -1,4 +1,4 @@
-from src.mathml_to_latex.el_to_tex.protocols import MathMLElement, VoidMathMLElement
+from .protocols import MathMLElement, VoidMathMLElement
 from .usecases import (
     Void,
     MI,

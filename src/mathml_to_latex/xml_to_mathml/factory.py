@@ -1,6 +1,6 @@
-from src.mathml_to_latex.xml_to_mathml.adapter import XmlToMathMLAdapter
-from src.mathml_to_latex.xml_to_mathml.services.error_handler import ErrorHandler
-from src.mathml_to_latex.xml_to_mathml.services.xml_elements_to_mathml_element import (
+from .adapter import XmlToMathMLAdapter
+from .services.error_handler import ErrorHandler
+from .services.xml_elements_to_mathml_element import (
     ElementsToMathMLAdapter,
 )
 
