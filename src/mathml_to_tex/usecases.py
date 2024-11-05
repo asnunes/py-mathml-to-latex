@@ -1,4 +1,5 @@
 from typing import Optional, List
+import re
 
 from src.syntax import (
     HashUTF8ToLtXConverter,
@@ -8,7 +9,12 @@ from src.syntax import (
     all_math_operators_by_char,
     all_math_operators_by_glyph,
 )
-from .protocols import ToLaTeXConverter, MathMLElement, InvalidNumberOfChildrenError
+from .protocols import (
+    ToLaTeXConverter,
+    MathMLElement,
+    InvalidNumberOfChildrenError,
+    MIMathMlElement,
+)
 from .services.normalizer import WhiteSpaceNormalizer
 from .services.wrapper import (
     ParenthesisWrapper,
@@ -943,3 +949,170 @@ class MSubsup(ToLaTeXConverter):
         superscript_str = self._adapter.to_latex_converter(superscript).convert()
 
         return self._bracket_wrapper.wrap(superscript_str)
+
+
+# class TextCommand {
+#   private readonly _mathvariant: string;
+#
+#   constructor(mathvariant: string | undefined) {
+#     this._mathvariant = mathvariant || 'normal';
+#   }
+#
+#   apply(value: string) {
+#     return this._commands.reduce((acc, command, index) => {
+#       if (index === 0) return `${command}{${value}}`;
+#       return `${command}{${acc}}`;
+#     }, '');
+#   }
+#
+#   private get _commands(): string[] {
+#     switch (this._mathvariant) {
+#       case 'bold':
+#         return ['\\textbf'];
+#       case 'italic':
+#         return ['\\textit'];
+#       case 'bold-italic':
+#         return ['\\textit', '\\textbf'];
+#       case 'double-struck':
+#         return ['\\mathbb'];
+#       case 'monospace':
+#         return ['\\mathtt'];
+#       case 'bold-fraktur':
+#       case 'fraktur':
+#         return ['\\mathfrak'];
+#       default:
+#         return ['\\text'];
+#     }
+#   }
+# }
+#
+# type Char = {
+#   value: string;
+#   isAlphanumeric: boolean;
+# };
+
+
+class TextCommand:
+    def __init__(self, math_variant: str):
+        self._math_variant = math_variant or "normal"
+
+    def apply(self, value: str) -> str:
+        acc = value
+        for command in self._commands:
+            acc = f"{command}{{{acc}}}"
+
+        return acc
+
+    @property
+    def _commands(self) -> List[str]:
+        if self._math_variant == "bold":
+            return ["\\textbf"]
+        if self._math_variant == "italic":
+            return ["\\textit"]
+        if self._math_variant == "bold-italic":
+            return ["\\textit", "\\textbf"]
+        if self._math_variant == "double-struck":
+            return ["\\mathbb"]
+        if self._math_variant == "monospace":
+            return ["\\mathtt"]
+        if self._math_variant in ["bold-fraktur", "fraktur"]:
+            return ["\\mathfrak"]
+        return ["\\text"]
+
+
+class Char:
+    def __init__(self, value: str, is_alphanumeric: bool):
+        self.value = value
+        self.is_alphanumeric = is_alphanumeric
+
+
+# export class MText implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { attributes, value } = this._mathmlElement;
+#
+#     return [...value]
+#       .map<Char>((char) => {
+#         // if is a letter, number or space, return it
+#         if (/^[a-zA-Z0-9]$/.test(char) || char === ' ')
+#           return {
+#             value: char,
+#             isAlphanumeric: true,
+#           };
+#
+#         // if is a symbol, set it to mi parser
+#         return {
+#           value: char,
+#           isAlphanumeric: false,
+#         };
+#       })
+#       .reduce<Char[]>((acc, char) => {
+#         // merge consecutive alphanumeric characters
+#         if (char.isAlphanumeric) {
+#           const lastChar = acc[acc.length - 1];
+#           if (lastChar && lastChar.isAlphanumeric) {
+#             lastChar.value += char.value;
+#             return acc;
+#           }
+#         }
+#
+#         return [...acc, char];
+#       }, [])
+#       .map((char) => {
+#         if (!char.isAlphanumeric) {
+#           return new MI({
+#             name: 'mi',
+#             attributes: {},
+#             children: [],
+#             value: char.value,
+#           }).convert();
+#         }
+#
+#         return new TextCommand(attributes.mathvariant).apply(char.value);
+#       })
+#       .join('');
+#   }
+# }
+
+
+class MText(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement):
+        self._math_element = math_element
+
+    def convert(self) -> str:
+        attributes = self._math_element.attributes
+        value = self._math_element.value
+
+        chars = [
+            (
+                Char(char, True)
+                if re.match(r"^[a-zA-Z0-9]$", char) or char == " "
+                else Char(char, False)
+            )
+            for char in value
+        ]
+
+        merged_chars = []
+        for char in chars:
+            if char.is_alphanumeric:
+                last_char = merged_chars[-1] if merged_chars else None
+                if last_char and last_char.is_alphanumeric:
+                    last_char.value += char.value
+                    continue
+            merged_chars.append(char)
+
+        return "".join(
+            [
+                (
+                    MI(MIMathMlElement(char.value)).convert()
+                    if not char.is_alphanumeric
+                    else TextCommand(attributes.get("mathvariant")).apply(char.value)
+                )
+                for char in merged_chars
+            ]
+        )

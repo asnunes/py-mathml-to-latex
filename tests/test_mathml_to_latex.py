@@ -81,6 +81,16 @@ from tests.mathml import (
     msubsup,
     msubsup_with_mrow,
     msubsup_with_four_children,
+    mtext_normal,
+    mtext_bold,
+    mtext_italic,
+    mtext_bold_italic,
+    mtext_double_struck,
+    mtext_fraktur,
+    mtext_bold_fraktur,
+    mtext_monospace,
+    mtext_script,
+    mtext_bold_script,
 )
 
 
@@ -503,56 +513,56 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(msubsup_with_four_children)
 
-    # def test_convert_mtext_normal(self):
-    #     expected_latex = '\\text{ Theorem of Pythagoras }'
-    #     result = self.converter.convert(mtext_normal)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_bold(self):
-    #     expected_latex = '\\textbf{ Theorem of Pythagoras }'
-    #     result = self.converter.convert(mtext_bold)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_italic(self):
-    #     expected_latex = '\\textit{ Theorem of Pythagoras }'
-    #     result = self.converter.convert(mtext_italic)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_bold_italic(self):
-    #     expected_latex = '\\textbf{\\textit{ Theorem of Pythagoras }}'
-    #     result = self.converter.convert(mtext_bold_italic)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_double_struck(self):
-    #     expected_latex = '\\mathbb{R}'
-    #     result = self.converter.convert(mtext_double_struck)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_fraktur(self):
-    #     expected_latex = '\\mathfrak{Creepy}'
-    #     result = self.converter.convert(mtext_fraktur)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_bold_fraktur(self):
-    #     expected_latex = '\\mathfrak{Creepy}'
-    #     result = self.converter.convert(mtext_bold_fraktur)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_monospace(self):
-    #     expected_latex = '\\mathtt{simple text}'
-    #     result = self.converter.convert(mtext_monospace)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_script(self):
-    #     expected_latex = '\\text{Creepy}'
-    #     result = self.converter.convert(mtext_script)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mtext_bold_script(self):
-    #     expected_latex = '\\text{Creepy}'
-    #     result = self.converter.convert(mtext_bold_script)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_mtext_normal(self):
+        expected_latex = "\\text{Theorem of Pythagoras}"
+        result = self.converter.convert(mtext_normal)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_bold(self):
+        expected_latex = "\\textbf{Theorem of Pythagoras}"
+        result = self.converter.convert(mtext_bold)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_italic(self):
+        expected_latex = "\\textit{Theorem of Pythagoras}"
+        result = self.converter.convert(mtext_italic)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_bold_italic(self):
+        expected_latex = "\\textbf{\\textit{Theorem of Pythagoras}}"
+        result = self.converter.convert(mtext_bold_italic)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_double_struck(self):
+        expected_latex = "\\mathbb{R}"
+        result = self.converter.convert(mtext_double_struck)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_fraktur(self):
+        expected_latex = "\\mathfrak{Creepy}"
+        result = self.converter.convert(mtext_fraktur)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_bold_fraktur(self):
+        expected_latex = "\\mathfrak{Creepy}"
+        result = self.converter.convert(mtext_bold_fraktur)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_monospace(self):
+        expected_latex = "\\mathtt{simple text}"
+        result = self.converter.convert(mtext_monospace)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_script(self):
+        expected_latex = "\\text{Creepy}"
+        result = self.converter.convert(mtext_script)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mtext_bold_script(self):
+        expected_latex = "\\text{Creepy}"
+        result = self.converter.convert(mtext_bold_script)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_mover_overbrace(self):
     #     expected_latex = '\\hat{x + y + z}'
     #     result = self.converter.convert(mover_mrow)

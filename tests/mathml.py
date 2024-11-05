@@ -1,13 +1,13 @@
-mi = '''
+mi = """
 <root><math><mi>a</mi></math></root>
-'''
+"""
 
-mi_with_space = '''
+mi_with_space = """
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi mathvariant="normal">Δ</mi>
   <mi>x</mi>
 </math>
-'''
+"""
 
 # export const miWithDoubleStruck = `
 # <math>
@@ -22,7 +22,7 @@ mi_with_space = '''
 # </math>
 # `;
 
-mi_with_double_struck = '''
+mi_with_double_struck = """
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mrow>
@@ -33,42 +33,42 @@ mi_with_double_struck = '''
     </mrow>
   </msup>
 </math>
-'''
+"""
 
-math_with_mi = '''
+math_with_mi = """
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>b</mi>
 </math>
-'''
+"""
 
 # export const mathWithMiAndSpace = '<root><math><mi> a </mi></math></root>';
 
-math_with_mi_and_space = '''
+math_with_mi_and_space = """
 <root>
   <math>
     <mi> a </mi>
   </math>
 </root>
-'''
+"""
 
 # export const miWithEspecialChar = '<root><math><mi> &#x221E; </mi></math></root>';
-mi_with_especial_char = '''
+mi_with_especial_char = """
 <root>
   <math>
     <mi> &#x221E; </mi>
   </math>
 </root>
-'''
+"""
 
-mo_with_simple_operator = '''
+mo_with_simple_operator = """
 <root>
   <math>
     <mo>+</mo>
   </math>
 </root>
-'''
+"""
 
-mo_divider_operator = '''
+mo_divider_operator = """
 <math>
   <mi>x</mi>
   <mo>=</mo>
@@ -78,25 +78,25 @@ mo_divider_operator = '''
   </mrow>
   <mn>5</mn>
 </math>
-'''
+"""
 
-mo_with_glyph_operator = '''
+mo_with_glyph_operator = """
 <root>
   <math>
     <mo>*</mo>
   </math>
 </root>
-'''
+"""
 
-mo_with_char_operator = '''
+mo_with_char_operator = """
 <root>
   <math>
     <mo>b</mo>
   </math>
 </root>
-'''
+"""
 
-mo_with_char_operator_and_mi = '''
+mo_with_char_operator_and_mi = """
 <root>
   <math xmlns="http://www.w3.org/1998/Math/MathML">
     <mstyle displaystyle="true">
@@ -106,9 +106,9 @@ mo_with_char_operator_and_mi = '''
     </mstyle>
   </math>
 </root>
-'''
+"""
 
-mrow_with_mn_and_mo = '''
+mrow_with_mn_and_mo = """
 <root>
   <math>
     <mrow>
@@ -118,9 +118,9 @@ mrow_with_mn_and_mo = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-msqrt = '''
+msqrt = """
 <root>
   <math>
     <msqrt>
@@ -128,9 +128,9 @@ msqrt = '''
     </msqrt>
   </math>
 </root>
-'''
+"""
 
-msqrt_with_wrapped_content = '''
+msqrt_with_wrapped_content = """
 <root>
   <math>
     <msqrt>
@@ -140,9 +140,9 @@ msqrt_with_wrapped_content = '''
     </msqrt>
   </math>
 </root>
-'''
+"""
 
-msqrt_with_mrow = '''
+msqrt_with_mrow = """
 <root>
   <math>
     <msqrt>
@@ -154,18 +154,18 @@ msqrt_with_mrow = '''
     </msqrt>
   </math>
 </root>
-'''
+"""
 
-empty_msqrt = '''
+empty_msqrt = """
 <root>
   <math>
     <msqrt>
     </msqrt>
   </math>
 </root>
-'''
+"""
 
-mfenced_without_attribute = '''
+mfenced_without_attribute = """
 <root>
   <math>
   <mfenced>
@@ -173,9 +173,9 @@ mfenced_without_attribute = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_open = '''
+mfenced_with_open = """
 <root>
   <math>
   <mfenced open="{">
@@ -183,9 +183,9 @@ mfenced_with_open = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_open_and_close = '''
+mfenced_with_open_and_close = """
 <root>
   <math>
   <mfenced open="(" close=")">
@@ -193,9 +193,9 @@ mfenced_with_open_and_close = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_broken_close = '''
+mfenced_with_broken_close = """
 <root>
   <math>
   <mfenced open="{" close>
@@ -203,9 +203,9 @@ mfenced_with_broken_close = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_wrapped_content = '''
+mfenced_with_wrapped_content = """
 <root>
   <math>
   <mfenced>
@@ -215,9 +215,9 @@ mfenced_with_wrapped_content = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_empty_separator = '''
+mfenced_with_empty_separator = """
 <root>
   <math>
   <mfenced separators=''>
@@ -228,9 +228,9 @@ mfenced_with_empty_separator = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_separator = '''
+mfenced_with_separator = """
 <root>
   <math>
   <mfenced separators=';;;'>
@@ -240,9 +240,9 @@ mfenced_with_separator = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_diff_separators = '''
+mfenced_with_diff_separators = """
 <root>
   <math>
   <mfenced separators=';.'>
@@ -253,9 +253,9 @@ mfenced_with_diff_separators = '''
   </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_bmatrix = '''
+mfenced_as_bmatrix = """
 <root>
   <math xmlns = "http://www.w3.org/1998/Math/MathML">
     <mrow>
@@ -276,9 +276,9 @@ mfenced_as_bmatrix = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_pmatrix = '''
+mfenced_as_pmatrix = """
 <root>
   <math xmlns = "http://www.w3.org/1998/Math/MathML">
     <mrow>
@@ -299,9 +299,9 @@ mfenced_as_pmatrix = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_vmatrix = '''
+mfenced_as_vmatrix = """
 <root>
   <math xmlns = "http://www.w3.org/1998/Math/MathML">
     <mrow>
@@ -322,9 +322,9 @@ mfenced_as_vmatrix = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_big_bmatrix = '''
+mfenced_as_big_bmatrix = """
 <root>
   <math xmlns = "http://www.w3.org/1998/Math/MathML">
     <mrow>
@@ -345,9 +345,9 @@ mfenced_as_big_bmatrix = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_big_vmatrix = '''
+mfenced_as_big_vmatrix = """
 <root>
   <math xmlns = "http://www.w3.org/1998/Math/MathML">
     <mrow>
@@ -368,9 +368,9 @@ mfenced_as_big_vmatrix = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_matrix = '''
+mfenced_as_matrix = """
 <root>
   <math xmlns = "http://www.w3.org/1998/Math/MathML">
     <mrow>
@@ -391,9 +391,9 @@ mfenced_as_matrix = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
-mfenced_as_partial_function = '''
+mfenced_as_partial_function = """
 <root>
   <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
     <mi>f</mi>
@@ -449,9 +449,9 @@ mfenced_as_partial_function = '''
     </mfenced>
   </math>
 </root>
-'''
+"""
 
-mfenced_with_nested_mtables = '''
+mfenced_with_nested_mtables = """
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mfenced separators="|">
     <mrow>
@@ -671,9 +671,9 @@ mfenced_with_nested_mtables = '''
   </mfenced>
   <mi></mi>
 </math>
-'''
+"""
 
-mfrac = '''
+mfrac = """
 <root>
   <math>
     <mfrac>
@@ -682,9 +682,9 @@ mfrac = '''
     </mfrac>
   </math>
 </root>
-'''
+"""
 
-mfrac_with_mrow = '''
+mfrac_with_mrow = """
 <root>
   <math>
     <mfrac>
@@ -701,9 +701,9 @@ mfrac_with_mrow = '''
     </mfrac>
   </math>
 </root>
-'''
+"""
 
-short_m_frac = '''
+short_m_frac = """
 <root>
   <math>
     <mfrac bevelled="true">
@@ -719,9 +719,9 @@ short_m_frac = '''
     </mfrac>
   </math>
 </root>
-'''
+"""
 
-mfrac_with_three_children = '''
+mfrac_with_three_children = """
 <root>
   <math>
     <mfrac>
@@ -731,9 +731,9 @@ mfrac_with_three_children = '''
     </mfrac>
   </math>
 </root>
-'''
+"""
 
-mroot = '''
+mroot = """
 <root>
   <math>
     <mroot>
@@ -746,9 +746,9 @@ mroot = '''
     </mroot> 
   </math>
 </root>
-'''
+"""
 
-mroot_with_three_children = '''
+mroot_with_three_children = """
 <root>
   <math>
     <mroot>
@@ -762,9 +762,9 @@ mroot_with_three_children = '''
     </mroot> 
   </math>
 </root>
-'''
+"""
 
-mpadded = '''
+mpadded = """
 <root>
   <math>
     <mpadded>
@@ -774,9 +774,9 @@ mpadded = '''
     </mpadded>
   </math>
 </root>
-'''
+"""
 
-maction = '''
+maction = """
 <root>
   <math>
     <maction>
@@ -793,9 +793,9 @@ maction = '''
     </maction>
   </math>
 </root>
-'''
+"""
 
-maction_with_mrow = '''
+maction_with_mrow = """
 <root>
   <math>
     <maction>
@@ -817,9 +817,9 @@ maction_with_mrow = '''
     </maction>
   </math>
 </root>
-'''
+"""
 
-maction_type_toggle = '''
+maction_type_toggle = """
 <root>
   <math>
     <maction actiontype="toggle">
@@ -841,9 +841,9 @@ maction_type_toggle = '''
     </maction>
   </math>
 </root>
-'''
+"""
 
-maction_type_statusline = '''
+maction_type_statusline = """
 <root>
   <math>
     <maction actiontype="statusline">
@@ -865,9 +865,9 @@ maction_type_statusline = '''
     </maction>
   </math>
 </root>
-'''
+"""
 
-maction_type_tooltip = '''
+maction_type_tooltip = """
 <root>
   <math>
     <maction actiontype="tooltip">
@@ -889,7 +889,7 @@ maction_type_tooltip = '''
     </maction>
   </math>
 </root>
-'''
+"""
 
 menclose = """
 <root>
@@ -1143,7 +1143,7 @@ menclose_notation_phasorangle = """
 </root>
 """
 
-merror = '''
+merror = """
 <root>
   <math>
     <merror>
@@ -1153,17 +1153,17 @@ merror = '''
     </merror>
   </math>
 </root>
-'''
+"""
 
-mglyph = '''
+mglyph = """
 <root>
   <math>
     <mi><mglyph src="my-glyph.png" alt="my glyph"/></mi>
   </math>
 </root>
-'''
+"""
 
-mphantom = '''
+mphantom = """
 <root>
   <math>
     <mrow>
@@ -1177,7 +1177,7 @@ mphantom = '''
     </mrow>
   </math>
 </root>
-'''
+"""
 
 msup = """
 <root>
@@ -1364,28 +1364,107 @@ msubsup_with_four_children = """
 </root>
 """
 
+mtext = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext> Theorem of Pythagoras </mtext>
+  </math>
+</root>
+"""
 
+mtext_normal = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="normal"> Theorem of Pythagoras </mtext>
+  </math>
+</root>
+"""
 
+mtext_bold = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="bold"> Theorem of Pythagoras </mtext>
+  </math>
+</root>
+"""
 
+mtext_italic = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="italic"> Theorem of Pythagoras </mtext>
+  </math>
+</root>
+"""
 
+mtext_bold_italic = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="bold-italic"> Theorem of Pythagoras </mtext>
+  </math>
+</root>
+"""
 
+mtext_double_struck = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="double-struck">R</mtext>
+  </math>
+</root>
+"""
 
+mtext_fraktur = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="fraktur">Creepy</mtext>
+  </math>
+</root>
+"""
 
+mtext_bold_fraktur = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="bold-fraktur">Creepy</mtext>
+  </math>
+</root>
+"""
 
+mtext_monospace = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="monospace">simple text</mtext>
+  </math>
+</root>
+"""
 
+mtext_script = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="script">Creepy</mtext>
+  </math>
+</root>
+"""
 
+mtext_bold_script = """
+<root>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mtext mathvariant="bold-script">Creepy</mtext>
+  </math>
+</root>
+"""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+mtext_mover = """
+<root>
+  <math>
+    <mover accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mo>⏞</mo>
+    </mover>
+  </math>
+</root>
+"""

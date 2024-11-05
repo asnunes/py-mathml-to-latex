@@ -18,6 +18,7 @@ from .usecases import (
     MEnclose,
     MError,
     MSubsup,
+    MText,
 )
 
 
@@ -48,7 +49,7 @@ class MathMLElementToLatexConverterAdapter:
             "msub": self._make_msub_tag_converter,
             "msubsup": self._make_msubsup_tag_converter,
             # 'mmultiscripts': ToLatexConverters.MMultiscripts,
-            # 'mtext': ToLatexConverters.MText,
+            "mtext": MText,
             # 'munderover': ToLatexConverters.MUnderover,
             "mtable": self._make_mtable_tag_converter,
             "mtr": self._make_mtr_tag_converter,
