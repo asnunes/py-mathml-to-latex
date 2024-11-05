@@ -91,6 +91,10 @@ from tests.mathml import (
     mtext_monospace,
     mtext_script,
     mtext_bold_script,
+    mover_mrow,
+    mover_encoded_mo,
+    mover_double_mrow,
+    mover_three_children,
 )
 
 
@@ -563,25 +567,25 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(mtext_bold_script)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_mover_overbrace(self):
-    #     expected_latex = '\\hat{x + y + z}'
-    #     result = self.converter.convert(mover_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mover_encoded_mo(self):
-    #     expected_latex = '\\hat{x + y + z}'
-    #     result = self.converter.convert(mover_encoded_mo)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mover_double_mrow(self):
-    #     expected_latex = '\\overset{a + b}{x + y + z}'
-    #     result = self.converter.convert(mover_double_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mover_with_three_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(mover_three_children)
-    #
+    def test_convert_mover_overbrace(self):
+        expected_latex = "\\hat{x + y + z}"
+        result = self.converter.convert(mover_mrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mover_encoded_mo(self):
+        expected_latex = "\\hat{x + y + z}"
+        result = self.converter.convert(mover_encoded_mo)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mover_double_mrow(self):
+        expected_latex = "\\overset{a + b}{x + y + z}"
+        result = self.converter.convert(mover_double_mrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mover_with_three_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(mover_three_children)
+
     # def test_convert_munder_underbrace(self):
     #     expected_latex = '\\underbrace{x + y + z}'
     #     result = self.converter.convert(munder)

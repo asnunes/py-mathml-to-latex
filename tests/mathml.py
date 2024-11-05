@@ -1468,3 +1468,168 @@ mtext_mover = """
   </math>
 </root>
 """
+
+mover_mrow = """
+<root>
+  <math>
+    <mover accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mo>^</mo>
+    </mover>
+  </math>
+</root>
+"""
+
+mover_encoded_mo = """
+<root>
+  <math>
+    <mover accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mo>&#x2C6;</mo>
+    </mover>
+  </math>
+</root>
+"""
+
+mover_double_mrow = """
+<root>
+  <math>
+    <mover accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mrow>
+        <mi> a </mi>
+        <mo> + </mo>
+        <mi> b </mi>
+      </mrow>
+    </mover>
+  </math>
+</root>
+"""
+
+mover_three_children = """
+<root>
+  <math>
+    <mover accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mo> + </mo>
+      <mi> z </mi>
+    </mover>
+  </math>
+</root>
+"""
+
+munder = """
+<root>
+  <math>
+    <munder accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mo>⏟</mo>
+    </munder>
+  </math>
+</root>
+"""
+
+munder_double_mrow = """
+<root>
+  <math>
+    <munder accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mrow>
+        <mi> a </mi>
+        <mo> + </mo>
+        <mi> b </mi>
+      </mrow>
+    </munder>
+  </math>
+</root>
+"""
+
+munder_encoded_mrow = """
+<root>
+  <math>
+    <munder accent="true">
+      <mrow>
+        <mi> x </mi>
+        <mo> + </mo>
+        <mi> y </mi>
+        <mo> + </mo>
+        <mi> z </mi>
+      </mrow>
+      <mo>&#x23DF;</mo>
+    </munder>
+  </math>
+</root>
+"""
+
+munderover = """
+<root>
+  <math>
+    <munderover>
+      <mo> &#x222B;</mo>
+      <mn> 0 </mn>
+      <mn> 1 </mn>
+    </munderover>
+  </math>
+</root>
+"""
+
+munderover_encoded = """
+<root>
+  <math>
+    <munderover>
+      <mo> &#x222B;</mo>
+      <mn> 0 </mn>
+      <mi> &#x221E; </mi>
+    </munderover>
+  </math>
+</root>
+"""
+
+munderover_with_three_children = """
+<root>
+  <math>
+    <munderover>
+      <mo> &#x222B;</mo>
+      <mn> 0 </mn>
+      <mi> &#x221E; </mi>
+      <mi> 1 </mi>
+    </munderover>
+  </math>
+</root>
+"""

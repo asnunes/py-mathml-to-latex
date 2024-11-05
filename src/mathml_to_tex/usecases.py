@@ -1,5 +1,6 @@
 from typing import Optional, List
 import re
+from enum import Enum
 
 from src.syntax import (
     HashUTF8ToLtXConverter,
@@ -1116,3 +1117,102 @@ class MText(ToLaTeXConverter):
                 for char in merged_chars
             ]
         )
+
+
+# class UnderOverSetter {
+#   private readonly _type;
+#
+#   constructor(type: TagTypes) {
+#     this._type = type;
+#   }
+#
+#   apply(content: string, accent: string) {
+#     return latexAccents.includes(accent) ? `${accent}{${content}}` : `${this._defaultCommand}{${accent}}{${content}}`;
+#   }
+#
+#   private get _defaultCommand(): string {
+#     if (this._type === TagTypes.Under) return '\\underset';
+#     return '\\overset';
+#   }
+# }
+#
+# enum TagTypes {
+#   Under,
+#   Over,
+# }
+
+
+class TagTypes(Enum):
+    Under = 1
+    Over = 2
+
+
+class UnderOverSetter:
+    def __init__(self, ty: TagTypes):
+        self._type = ty
+
+    def apply(self, content: str, accent: str) -> str:
+        latex_accents = ["\\hat", "\\bar", "\\underbrace", "\\overbrace"]
+        return (
+            f"{accent}{{{content}}}"
+            if accent in latex_accents
+            else f"{self._default_command}{{{accent}}}{{{content}}}"
+        )
+
+    @property
+    def _default_command(self) -> str:
+        return "\\underset" if self._type == TagTypes.Under else "\\overset"
+
+
+# export class GenericUnderOver implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
+#
+#     const content = mathMLElementToLaTeXConverter(children[0]).convert();
+#     const accent = mathMLElementToLaTeXConverter(children[1]).convert();
+#
+#     return this._applyCommand(content, accent);
+#   }
+#
+#   private _applyCommand(content: string, accent: string): string {
+#     const type = this._mathmlElement.name.match(/under/) ? TagTypes.Under : TagTypes.Over;
+#     return new UnderOverSetter(type).apply(content, accent);
+#   }
+# }
+#
+
+
+class GenericUnderOver(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
+
+        if children_length != 2:
+            raise InvalidNumberOfChildrenError(name, 2, children_length)
+
+        content = self._adapter.to_latex_converter(children[0]).convert()
+        accent = self._adapter.to_latex_converter(children[1]).convert()
+
+        return self._apply_command(content, accent)
+
+    def _apply_command(self, content: str, accent: str) -> str:
+        ty = (
+            TagTypes.Under
+            if re.match(r"under", self._math_element.name)
+            else TagTypes.Over
+        )
+        return UnderOverSetter(ty).apply(content, accent)
