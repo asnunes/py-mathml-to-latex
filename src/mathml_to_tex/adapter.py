@@ -21,6 +21,7 @@ from .usecases import (
     MText,
     GenericUnderOver,
     MUnderover,
+    MMultiscripts,
 )
 
 
@@ -50,7 +51,7 @@ class MathMLElementToLatexConverterAdapter:
             "msup": self._make_msup_tag_converter,
             "msub": self._make_msub_tag_converter,
             "msubsup": self._make_msubsup_tag_converter,
-            # 'mmultiscripts': ToLatexConverters.MMultiscripts,
+            "mmultiscripts": self._make_mmultiscripts_tag_converter,
             "mtext": MText,
             "munderover": self._make_munderover_tag_converter,
             "mtable": self._make_mtable_tag_converter,
@@ -107,6 +108,11 @@ class MathMLElementToLatexConverterAdapter:
 
     def _make_merror_tag_converter(self, math_element: MathMLElement) -> MError:
         return MError(math_element, self)
+
+    def _make_mmultiscripts_tag_converter(
+        self, math_element: MathMLElement
+    ) -> MMultiscripts:
+        return MMultiscripts(math_element, self)
 
     def _make_generic_spacing_wrapper(
         self, math_element: MathMLElement

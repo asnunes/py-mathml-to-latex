@@ -1633,3 +1633,110 @@ munderover_with_three_children = """
   </math>
 </root>
 """
+
+mmultiscript = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+    <mrow>
+      <mi>N</mi>
+      <mi>a</mi>
+    </mrow>
+    <mrow>
+      <mn>11</mn>
+    </mrow>
+    <mrow>
+      <mi>+</mi>
+    </mrow>
+  </mmultiscripts>
+</math>
+"""
+
+mmultiscript_no_super = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+    <mrow>
+      <mi>N</mi>
+      <mi>a</mi>
+    </mrow>
+    <mrow>
+      <mn>11</mn>
+    </mrow>
+    <none/>
+  </mmultiscripts>
+</math>
+"""
+
+mmultiscript_no_sub = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+    <mrow>
+      <mi>N</mi>
+      <mi>a</mi>
+    </mrow>
+    <none/>
+    <mrow>
+      <mn>+</mn>
+    </mrow>
+  </mmultiscripts>
+</math>
+"""
+
+mmultiscript_preset = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+
+    <mi>X</mi>      <!-- base expression -->  
+
+    <mi>d</mi>      <!-- postsubscript -->
+    <mi>c</mi>      <!-- postsuperscript -->
+
+    <mprescripts />
+    <mi>b</mi>      <!-- presubscript -->
+    <mi>a</mi>      <!-- presuperscript -->
+
+  </mmultiscripts>
+</math>
+"""
+
+mmultiscript_preset_with_none = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+
+    <mi>X</mi>      <!-- base expression -->
+
+    <none />        <!-- postsubscript -->
+    <mi>c</mi>      <!-- postsuperscript -->
+
+    <mprescripts />
+    <mi>b</mi>      <!-- presubscript -->
+    <none />        <!-- presuperscript -->
+
+  </mmultiscripts>
+</math>
+"""
+
+mmultiscript_preset_only = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+    <mi>X</mi>      <!-- base expression -->
+    <mprescripts />
+    <mi>b</mi>      <!-- presubscript -->
+    <none />        <!-- presuperscript -->
+
+  </mmultiscripts>
+</math>
+"""
+
+mmultiscript_with_two_children = """
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mmultiscripts>
+    <mrow>
+      <mi>N</mi>
+      <mi>a</mi>
+    </mrow>
+    <mrow>
+      <mn>11</mn>
+    </mrow>
+  </mmultiscripts>
+</math>
+"""

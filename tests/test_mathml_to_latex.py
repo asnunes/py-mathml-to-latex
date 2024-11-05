@@ -101,6 +101,13 @@ from tests.mathml import (
     munderover,
     munderover_encoded,
     munderover_with_three_children,
+    mmultiscript,
+    mmultiscript_no_super,
+    mmultiscript_no_sub,
+    mmultiscript_preset,
+    mmultiscript_preset_with_none,
+    mmultiscript_preset_only,
+    mmultiscript_with_two_children,
 )
 
 
@@ -621,45 +628,47 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(munderover_with_three_children)
 
-    # def test_convert_mmultiscript(self):
-    #     expected_latex = '\\left(N a\\right)_{11}^{+}'
-    #     result = self.converter.convert(mmultiscript)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscript_no_super(self):
-    #     expected_latex = '\\left(N a\\right)_{11}^{}'
-    #     result = self.converter.convert(mmultiscript_no_super)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscript_no_sub(self):
-    #     expected_latex = '\\left(N a\\right)_{}^{+}'
-    #     result = self.converter.convert(mmultiscript_no_sub)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscript_preset(self):
-    #     expected_latex = '\\_{b}^{a}X_{d}^{c}'
-    #     result = self.converter.convert(mmultiscript_preset)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscript_preset_with_none(self):
-    #     expected_latex = '\\_{b}^{}X_{}^{c}'
-    #     result = self.converter.convert(mmultiscript_preset_with_none)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscript_preset_only(self):
-    #     expected_latex = '\\_{b}^{}X'
-    #     result = self.converter.convert(mmultiscript_preset_only)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscript_with_two_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(mmultiscript_with_two_children)
-    #
+    def test_convert_mmultiscript(self):
+        expected_latex = "\\left(N a\\right)_{11}^{+}"
+        result = self.converter.convert(mmultiscript)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscript_no_super(self):
+        expected_latex = "\\left(N a\\right)_{11}^{}"
+        result = self.converter.convert(mmultiscript_no_super)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscript_no_sub(self):
+        expected_latex = "\\left(N a\\right)_{}^{+}"
+        result = self.converter.convert(mmultiscript_no_sub)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscript_preset(self):
+        expected_latex = "\\_{b}^{a}X_{d}^{c}"
+        result = self.converter.convert(mmultiscript_preset)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscript_preset_with_none(self):
+        expected_latex = "\\_{b}^{}X_{}^{c}"
+        result = self.converter.convert(mmultiscript_preset_with_none)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscript_preset_only(self):
+        expected_latex = "\\_{b}^{}X"
+        result = self.converter.convert(mmultiscript_preset_only)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscript_with_two_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(mmultiscript_with_two_children)
+
     # def test_convert_mmultiscript_trim_spaces(self):
-    #     expected_latex = 'x'
-    #     result = self.converter.convert(math_with_epsilon_glyph)  # Adjusted to the correct variable
+    #     expected_latex = "x"
+    #     result = self.converter.convert(
+    #         math_with_epsilon_glyph
+    #     )  # Adjusted to the correct variable
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_special_epsilon(self):
     #     expected_latex = 'd = \\left(\\frac{q^{2} L}{2 \\pi \\epsilon_{0} m g}\\right)^{1 / 3}'
     #     result = self.converter.convert(math_with_epsilon_glyph)

@@ -1258,3 +1258,128 @@ class MUnderover(ToLaTeXConverter):
         over_content = self._adapter.to_latex_converter(children[2]).convert()
 
         return f"{base}_{{{under_content}}}^{{{over_content}}}"
+
+
+# export class MMultiscripts implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength < 3) throw new InvalidNumberOfChildrenError(name, 3, childrenLength, 'at least');
+#
+#     const baseContent = mathMLElementToLaTeXConverter(children[0]).convert();
+#
+#     return this._prescriptLatex() + this._wrapInParenthesisIfThereIsSpace(baseContent) + this._postscriptLatex();
+#   }
+#
+#   private _prescriptLatex(): string {
+#     const { children } = this._mathmlElement;
+#     let sub;
+#     let sup;
+#
+#     if (this._isPrescripts(children[1])) {
+#       sub = children[2];
+#       sup = children[3];
+#     } else if (this._isPrescripts(children[3])) {
+#       sub = children[4];
+#       sup = children[5];
+#     } else return '';
+#
+#     const subLatex = mathMLElementToLaTeXConverter(sub).convert();
+#     const supLatex = mathMLElementToLaTeXConverter(sup).convert();
+#
+#     return `\\_{${subLatex}}^{${supLatex}}`;
+#   }
+#
+#   private _postscriptLatex(): string {
+#     const { children } = this._mathmlElement;
+#     if (this._isPrescripts(children[1])) return '';
+#
+#     const sub = children[1];
+#     const sup = children[2];
+#
+#     const subLatex = mathMLElementToLaTeXConverter(sub).convert();
+#     const supLatex = mathMLElementToLaTeXConverter(sup).convert();
+#
+#     return `_{${subLatex}}^{${supLatex}}`;
+#   }
+#
+#   private _wrapInParenthesisIfThereIsSpace(str: string): string {
+#     if (!str.match(/\s+/g)) return str;
+#     return new ParenthesisWrapper().wrap(str);
+#   }
+#
+#   private _isPrescripts(child: MathMLElement): boolean {
+#     return child?.name === 'mprescripts';
+#   }
+# }
+
+
+class MMultiscripts(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._parenthesis_wrapper = ParenthesisWrapper()
+
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
+
+        if children_length < 3:
+            raise InvalidNumberOfChildrenError(name, 3, children_length, "at least")
+
+        base_content = self._adapter.to_latex_converter(children[0]).convert()
+
+        return (
+            self._prescript_latex()
+            + self._wrap_in_parenthesis_if_there_is_space(base_content)
+            + self._postscript_latex()
+        )
+
+    def _prescript_latex(self) -> str:
+        children = self._math_element.children
+
+        if len(children) >= 4 and self._is_prescripts(children[1]):
+            sub = children[2]
+            sup = children[3]
+        elif len(children) >= 6 and self._is_prescripts(children[3]):
+            sub = children[4]
+            sup = children[5]
+        else:
+            return ""
+
+        sub_latex = self._adapter.to_latex_converter(sub).convert()
+        sup_latex = self._adapter.to_latex_converter(sup).convert()
+
+        return f"\\_{{{sub_latex}}}^{{{sup_latex}}}"
+
+    def _postscript_latex(self) -> str:
+        children = self._math_element.children
+
+        if len(children) < 3 or (
+            len(children) >= 1 and self._is_prescripts(children[1])
+        ):
+            return ""
+
+        sub = children[1]
+        sup = children[2]
+
+        sub_latex = self._adapter.to_latex_converter(sub).convert()
+        sup_latex = self._adapter.to_latex_converter(sup).convert()
+
+        return f"_{{{sub_latex}}}^{{{sup_latex}}}"
+
+    def _wrap_in_parenthesis_if_there_is_space(self, val: str) -> str:
+        if not re.search(r"\s+", val):
+            return val
+        return self._parenthesis_wrapper.wrap(val)
+
+    def _is_prescripts(self, child: MathMLElement) -> bool:
+        return child.name == "mprescripts"
