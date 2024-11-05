@@ -73,7 +73,14 @@ from tests.mathml import (
     msup_with_mrow_on_top_bottom,
     msup_with_three_children,
     msup,
-    msub, msub_with_mrow_on_bottom, msub_with_mrow_on_top, msub_with_mrow_on_top_bottom, msub_with_three_children,
+    msub,
+    msub_with_mrow_on_bottom,
+    msub_with_mrow_on_top,
+    msub_with_mrow_on_top_bottom,
+    msub_with_three_children,
+    msubsup,
+    msubsup_with_mrow,
+    msubsup_with_four_children,
 )
 
 
@@ -482,20 +489,20 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(msub_with_three_children)
 
-    # def test_convert_msubsup(self):
-    #     expected_latex = '\\int_{0}^{1}'
-    #     result = self.converter.convert(msubsup)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_msubsup_with_mrow(self):
-    #     expected_latex = '\\left(x + y\\right)_{0}^{1}'
-    #     result = self.converter.convert(msubsup_with_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_msubsup_with_four_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(msubsup_with_four_children)
-    #
+    def test_convert_msubsup(self):
+        expected_latex = "\\int_{0}^{1}"
+        result = self.converter.convert(msubsup)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_msubsup_with_mrow(self):
+        expected_latex = "\\left(x + y\\right)_{0}^{1}"
+        result = self.converter.convert(msubsup_with_mrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_msubsup_with_four_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(msubsup_with_four_children)
+
     # def test_convert_mtext_normal(self):
     #     expected_latex = '\\text{ Theorem of Pythagoras }'
     #     result = self.converter.convert(mtext_normal)

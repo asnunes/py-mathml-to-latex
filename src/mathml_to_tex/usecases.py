@@ -1,10 +1,21 @@
 from typing import Optional, List
 
-from src.syntax import HashUTF8ToLtXConverter, all_math_symbols_by_char, all_math_symbols_by_glyph, math_number_by_glyph, \
-    all_math_operators_by_char, all_math_operators_by_glyph
+from src.syntax import (
+    HashUTF8ToLtXConverter,
+    all_math_symbols_by_char,
+    all_math_symbols_by_glyph,
+    math_number_by_glyph,
+    all_math_operators_by_char,
+    all_math_operators_by_glyph,
+)
 from .protocols import ToLaTeXConverter, MathMLElement, InvalidNumberOfChildrenError
 from .services.normalizer import WhiteSpaceNormalizer
-from .services.wrapper import ParenthesisWrapper, BracketWrapper, GenericWrapper, JoinWithManySeparators
+from .services.wrapper import (
+    ParenthesisWrapper,
+    BracketWrapper,
+    GenericWrapper,
+    JoinWithManySeparators,
+)
 
 
 class Math(ToLaTeXConverter):
@@ -14,15 +25,22 @@ class Math(ToLaTeXConverter):
         self._math_element = math_element
 
     def convert(self) -> str:
-        raw_tex = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        raw_tex = " ".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
         return self._white_space_normalizer.normalize(raw_tex)
+
 
 class Void(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement):
         self._math_element = math_element
 
     def convert(self) -> str:
-        return ''
+        return ""
+
 
 class MI(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement):
@@ -32,7 +50,7 @@ class MI(ToLaTeXConverter):
 
     def convert(self) -> str:
         normalized_value = self._normalizer.normalize(self._math_element.value)
-        if normalized_value == ' ':
+        if normalized_value == " ":
             return Character.apply(normalized_value)
 
         trimmed_value = normalized_value.strip()
@@ -42,41 +60,44 @@ class MI(ToLaTeXConverter):
         if parsed_char != converted_char:
             return parsed_char
 
-        return self._wrap_in_math_variant(converted_char, self._get_math_variant(self._math_element.attributes))
+        return self._wrap_in_math_variant(
+            converted_char, self._get_math_variant(self._math_element.attributes)
+        )
 
     def _get_math_variant(self, attributes: dict) -> str:
-        if not attributes or 'mathvariant' not in attributes:
-            return ''
-        return attributes['mathvariant']
+        if not attributes or "mathvariant" not in attributes:
+            return ""
+        return attributes["mathvariant"]
 
     def _wrap_in_math_variant(self, value: str, math_variant: str) -> str:
-        if math_variant == 'bold':
-            return f'\\mathbf{{{value}}}'
-        if math_variant == 'italic':
-            return f'\\mathit{{{value}}}'
-        if math_variant == 'bold-italic':
-            return f'\\mathbf{{\\mathit{{{value}}}}}'
-        if math_variant == 'double-struck':
-            return f'\\mathbb{{{value}}}'
-        if math_variant == 'bold-fraktur':
-            return f'\\mathbf{{\\mathfrak{{{value}}}}}'
-        if math_variant == 'script':
-            return f'\\mathcal{{{value}}}'
-        if math_variant == 'bold-script':
-            return f'\\mathbf{{\\mathcal{{{value}}}}}'
-        if math_variant == 'fraktur':
-            return f'\\mathfrak{{{value}}}'
-        if math_variant == 'sans-serif':
-            return f'\\mathsf{{{value}}}'
-        if math_variant == 'bold-sans-serif':
-            return f'\\mathbf{{\\mathsf{{{value}}}}}'
-        if math_variant == 'sans-serif-italic':
-            return f'\\mathsf{{\\mathit{{{value}}}}}'
-        if math_variant == 'sans-serif-bold-italic':
-            return f'\\mathbf{{\\mathsf{{\\mathit{{{value}}}}}}}'
-        if math_variant == 'monospace':
-            return f'\\mathtt{{{value}}}'
+        if math_variant == "bold":
+            return f"\\mathbf{{{value}}}"
+        if math_variant == "italic":
+            return f"\\mathit{{{value}}}"
+        if math_variant == "bold-italic":
+            return f"\\mathbf{{\\mathit{{{value}}}}}"
+        if math_variant == "double-struck":
+            return f"\\mathbb{{{value}}}"
+        if math_variant == "bold-fraktur":
+            return f"\\mathbf{{\\mathfrak{{{value}}}}}"
+        if math_variant == "script":
+            return f"\\mathcal{{{value}}}"
+        if math_variant == "bold-script":
+            return f"\\mathbf{{\\mathcal{{{value}}}}}"
+        if math_variant == "fraktur":
+            return f"\\mathfrak{{{value}}}"
+        if math_variant == "sans-serif":
+            return f"\\mathsf{{{value}}}"
+        if math_variant == "bold-sans-serif":
+            return f"\\mathbf{{\\mathsf{{{value}}}}}"
+        if math_variant == "sans-serif-italic":
+            return f"\\mathsf{{\\mathit{{{value}}}}}"
+        if math_variant == "sans-serif-bold-italic":
+            return f"\\mathbf{{\\mathsf{{\\mathit{{{value}}}}}}}"
+        if math_variant == "monospace":
+            return f"\\mathtt{{{value}}}"
         return value
+
 
 class Character:
     def __init__(self, value: str):
@@ -87,16 +108,22 @@ class Character:
         return Character(value)._apply()
 
     def _apply(self) -> str:
-        return self._find_by_character() or self._find_by_glyph() or self._find_by_number() or HashUTF8ToLtXConverter().convert(self.value)
+        return (
+            self._find_by_character()
+            or self._find_by_glyph()
+            or self._find_by_number()
+            or HashUTF8ToLtXConverter().convert(self.value)
+        )
 
     def _find_by_character(self) -> str:
-        return all_math_symbols_by_char.get(self.value, '')
+        return all_math_symbols_by_char.get(self.value, "")
 
     def _find_by_glyph(self) -> str:
-        return all_math_symbols_by_glyph.get(self.value, '')
+        return all_math_symbols_by_glyph.get(self.value, "")
 
     def _find_by_number(self) -> str:
-        return math_number_by_glyph.get(self.value, '')
+        return math_number_by_glyph.get(self.value, "")
+
 
 class MO(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement):
@@ -154,9 +181,10 @@ class MN(ToLaTeXConverter):
 
     def convert(self) -> str:
         normalized_value = self._normalizer.normalize(self._math_element.value).strip()
-        converted_value = math_number_by_glyph.get(normalized_value, '')
+        converted_value = math_number_by_glyph.get(normalized_value, "")
 
         return converted_value or normalized_value
+
 
 # export class MSup implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -195,6 +223,7 @@ class MN(ToLaTeXConverter):
 #   }
 # }
 
+
 class MSup(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -213,7 +242,7 @@ class MSup(ToLaTeXConverter):
         base_child = children[0]
         exponent_child = children[1]
 
-        return f'{self._handle_base_child(base_child)}^{self._handle_exponent_child(exponent_child)}'
+        return f"{self._handle_base_child(base_child)}^{self._handle_exponent_child(exponent_child)}"
 
     def _handle_base_child(self, base: MathMLElement) -> str:
         base_children = base.children
@@ -245,13 +274,20 @@ class MSup(ToLaTeXConverter):
 #   }
 # }
 
+
 class GenericSpacingWrapper(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
 
     def convert(self) -> str:
-        return ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        return " ".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
+
 
 # export class MSqrt implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -270,15 +306,22 @@ class GenericSpacingWrapper(ToLaTeXConverter):
 #   }
 # }
 
+
 class MSqrt(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
 
     def convert(self) -> str:
-        latex_joined_children = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        latex_joined_children = " ".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
 
-        return f'\\sqrt{{{latex_joined_children}}}'
+        return f"\\sqrt{{{latex_joined_children}}}"
+
 
 class Separators:
     def __init__(self, op: str, close: str):
@@ -289,19 +332,19 @@ class Separators:
         return GenericWrapper(self._open, self._close).wrap(string)
 
     def are_parentheses(self) -> bool:
-        return self._compare('(', ')')
+        return self._compare("(", ")")
 
     def are_square_brackets(self) -> bool:
-        return self._compare('[', ']')
+        return self._compare("[", "]")
 
     def are_brackets(self) -> bool:
-        return self._compare('{', '}')
+        return self._compare("{", "}")
 
     def are_divides(self) -> bool:
-        return self._compare('|', '|')
+        return self._compare("|", "|")
 
     def are_parallels(self) -> bool:
-        return self._compare('||', '||')
+        return self._compare("||", "||")
 
     def are_not_equal(self) -> bool:
         return self._open != self._close
@@ -312,59 +355,77 @@ class Separators:
 
 class Vector:
     def __init__(self, op: str, close: str, separators: List[str]):
-        self._open = op if op != '' else '('
-        self._close = close if close != '' else ')'
+        self._open = op if op != "" else "("
+        self._close = close if close != "" else ")"
         self._separators = separators
 
     def apply(self, latex_contents):
-        content_without_wrapper = JoinWithManySeparators(self._separators).join(latex_contents)
+        content_without_wrapper = JoinWithManySeparators(self._separators).join(
+            latex_contents
+        )
         return GenericWrapper(self._open, self._close).wrap(content_without_wrapper)
+
 
 class Matrix:
     def __init__(self, op: str, close: str):
         self._separators = Separators(op, close)
-        self._generic_command = 'matrix'
+        self._generic_command = "matrix"
 
     def apply(self, latex_contents):
         command = self._command
         matrix = f'\\begin{{{command}}}\n{"".join(latex_contents)}\n\\end{{{command}}}'
 
-        return self._separators.wrap(matrix) if command == self._generic_command else matrix
+        return (
+            self._separators.wrap(matrix)
+            if command == self._generic_command
+            else matrix
+        )
 
     @property
     def _command(self):
         if self._separators.are_parentheses():
-            return 'pmatrix'
+            return "pmatrix"
         if self._separators.are_square_brackets():
-            return 'bmatrix'
+            return "bmatrix"
         if self._separators.are_brackets():
-            return 'Bmatrix'
+            return "Bmatrix"
         if self._separators.are_divides():
-            return 'vmatrix'
+            return "vmatrix"
         if self._separators.are_parallels():
-            return 'Vmatrix'
+            return "Vmatrix"
         if self._separators.are_not_equal():
             return self._generic_command
-        return 'bmatrix'
+        return "bmatrix"
+
 
 class MFenced(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
-        self._open = self._math_element.attributes.get('open', '')
-        self._close = self._math_element.attributes.get('close', '')
-        self._separators = list(self._math_element.attributes.get('separators', ''))
+        self._open = self._math_element.attributes.get("open", "")
+        self._close = self._math_element.attributes.get("close", "")
+        self._separators = list(self._math_element.attributes.get("separators", ""))
 
     def convert(self) -> str:
-        latex_children = [self._adapter.to_latex_converter(child).convert() for child in self._math_element.children]
+        latex_children = [
+            self._adapter.to_latex_converter(child).convert()
+            for child in self._math_element.children
+        ]
 
-        if self._is_there_relative_of_name(self._math_element.children, 'mtable'):
+        if self._is_there_relative_of_name(self._math_element.children, "mtable"):
             return Matrix(self._open, self._close).apply(latex_children)
 
         return Vector(self._open, self._close, self._separators).apply(latex_children)
 
     def _is_there_relative_of_name(self, mathml_elements, element_name):
-        return any([child.name == element_name or self._is_there_relative_of_name(child.children, element_name) for child in mathml_elements])
+        return any(
+            [
+                child.name == element_name
+                or self._is_there_relative_of_name(child.children, element_name)
+                for child in mathml_elements
+            ]
+        )
+
 
 # export class MTable implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -399,19 +460,29 @@ class MFenced(ToLaTeXConverter):
 #   }
 # }
 
+
 class MTable(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
-        self._add_flag_recursive_if_name(self._math_element.children, 'mtable', 'innerTable')
+        self._add_flag_recursive_if_name(
+            self._math_element.children, "mtable", "innerTable"
+        )
 
     def convert(self) -> str:
-        table_content = ' \\\\\n'.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        table_content = " \\\\\n".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
 
-        return self._wrap(table_content) if self._has_flag('innerTable') else table_content
+        return (
+            self._wrap(table_content) if self._has_flag("innerTable") else table_content
+        )
 
     def _wrap(self, latex: str) -> str:
-        return f'\\begin{{matrix}}{latex}\\end{{matrix}}'
+        return f"\\begin{{matrix}}{latex}\\end{{matrix}}"
 
     def _add_flag_recursive_if_name(self, mathml_elements, name, flag):
         for mathml_element in mathml_elements:
@@ -421,6 +492,7 @@ class MTable(ToLaTeXConverter):
 
     def _has_flag(self, flag: str) -> bool:
         return bool(self._math_element.attributes.get(flag))
+
 
 # export class MTr implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -437,13 +509,20 @@ class MTable(ToLaTeXConverter):
 #   }
 # }
 
+
 class MTr(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
 
     def convert(self) -> str:
-        return ' & '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        return " & ".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
+
 
 # export class MSub implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -482,6 +561,7 @@ class MTr(ToLaTeXConverter):
 #   }
 # }
 
+
 class MSub(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -500,7 +580,7 @@ class MSub(ToLaTeXConverter):
         base_child = children[0]
         subscript_child = children[1]
 
-        return f'{self._handle_base_child(base_child)}_{self._handle_subscript_child(subscript_child)}'
+        return f"{self._handle_base_child(base_child)}_{self._handle_subscript_child(subscript_child)}"
 
     def _handle_base_child(self, base: MathMLElement) -> str:
         base_children = base.children
@@ -515,6 +595,7 @@ class MSub(ToLaTeXConverter):
         subscript_str = self._adapter.to_latex_converter(subscript).convert()
 
         return self._bracket_wrapper.wrap(subscript_str)
+
 
 # export class MFrac implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -546,6 +627,7 @@ class MSub(ToLaTeXConverter):
 #   }
 # }
 
+
 class MFrac(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -564,15 +646,16 @@ class MFrac(ToLaTeXConverter):
         den = self._adapter.to_latex_converter(children[1]).convert()
 
         if self._is_bevelled():
-            return f'{self._wrap_if_more_than_one_char(num)}/{self._wrap_if_more_than_one_char(den)}'
+            return f"{self._wrap_if_more_than_one_char(num)}/{self._wrap_if_more_than_one_char(den)}"
 
-        return f'\\frac{{{num}}}{{{den}}}'
+        return f"\\frac{{{num}}}{{{den}}}"
 
     def _wrap_if_more_than_one_char(self, val: str) -> str:
         return self._parenthesis_wrapper.wrap_if_more_than_one_char(val)
 
     def _is_bevelled(self) -> bool:
-        return bool(self._math_element.attributes.get('bevelled'))
+        return bool(self._math_element.attributes.get("bevelled"))
+
 
 # export class MRoot implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -594,6 +677,7 @@ class MFrac(ToLaTeXConverter):
 #   }
 # }
 
+
 class MRoot(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -610,7 +694,8 @@ class MRoot(ToLaTeXConverter):
         content = self._adapter.to_latex_converter(children[0]).convert()
         root_index = self._adapter.to_latex_converter(children[1]).convert()
 
-        return f'\\sqrt[{root_index}]{{{content}}}'
+        return f"\\sqrt[{root_index}]{{{content}}}"
+
 
 # export class MAction implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -637,6 +722,7 @@ class MRoot(ToLaTeXConverter):
 #   }
 # }
 
+
 class MAction(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -646,13 +732,19 @@ class MAction(ToLaTeXConverter):
         children = self._math_element.children
 
         if self._is_toggle():
-            return ' \\Longrightarrow '.join([self._adapter.to_latex_converter(child).convert() for child in children])
+            return " \\Longrightarrow ".join(
+                [
+                    self._adapter.to_latex_converter(child).convert()
+                    for child in children
+                ]
+            )
 
         return self._adapter.to_latex_converter(children[0]).convert()
 
     def _is_toggle(self) -> bool:
-        action_type = self._math_element.attributes.get('actiontype')
-        return action_type == 'toggle' or not action_type
+        action_type = self._math_element.attributes.get("actiontype")
+        return action_type == "toggle" or not action_type
+
 
 # export class MEnclose implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -689,42 +781,49 @@ class MAction(ToLaTeXConverter):
 #   }
 # }
 
+
 class MEnclose(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
-        self._notation = self._math_element.attributes.get('notation', 'longdiv')
+        self._notation = self._math_element.attributes.get("notation", "longdiv")
 
     def convert(self) -> str:
-        latex_joined_children = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        latex_joined_children = " ".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
 
-        if self._notation == 'actuarial':
-            return f'\\overline{{\\left.{latex_joined_children}\\right|}}'
-        if self._notation == 'radical':
-            return f'\\sqrt{{{latex_joined_children}}}'
-        if self._notation in ['box', 'roundedbox', 'circle']:
-            return f'\\boxed{{{latex_joined_children}}}'
-        if self._notation == 'left':
-            return f'\\left|{latex_joined_children}'
-        if self._notation == 'right':
-            return f'{latex_joined_children}\\right|'
-        if self._notation == 'top':
-            return f'\\overline{{{latex_joined_children}}}'
-        if self._notation == 'bottom':
-            return f'\\underline{{{latex_joined_children}}}'
-        if self._notation == 'updiagonalstrike':
-            return f'\\cancel{{{latex_joined_children}}}'
-        if self._notation == 'downdiagonalstrike':
-            return f'\\bcancel{{{latex_joined_children}}}'
-        if self._notation == 'updiagonalarrow':
-            return f'\\cancelto{{}}{{{latex_joined_children}}}'
-        if self._notation in ['verticalstrike', 'horizontalstrike']:
-            return f'\\hcancel{{{latex_joined_children}}}'
-        if self._notation == 'madruwb':
-            return f'\\underline{{{latex_joined_children}\\right|}}'
-        if self._notation == 'phasorangle':
-            return f'{{\\angle \\underline{{{latex_joined_children}}}}}'
-        return f'\\overline{{\\left.\\right){latex_joined_children}}}'
+        if self._notation == "actuarial":
+            return f"\\overline{{\\left.{latex_joined_children}\\right|}}"
+        if self._notation == "radical":
+            return f"\\sqrt{{{latex_joined_children}}}"
+        if self._notation in ["box", "roundedbox", "circle"]:
+            return f"\\boxed{{{latex_joined_children}}}"
+        if self._notation == "left":
+            return f"\\left|{latex_joined_children}"
+        if self._notation == "right":
+            return f"{latex_joined_children}\\right|"
+        if self._notation == "top":
+            return f"\\overline{{{latex_joined_children}}}"
+        if self._notation == "bottom":
+            return f"\\underline{{{latex_joined_children}}}"
+        if self._notation == "updiagonalstrike":
+            return f"\\cancel{{{latex_joined_children}}}"
+        if self._notation == "downdiagonalstrike":
+            return f"\\bcancel{{{latex_joined_children}}}"
+        if self._notation == "updiagonalarrow":
+            return f"\\cancelto{{}}{{{latex_joined_children}}}"
+        if self._notation in ["verticalstrike", "horizontalstrike"]:
+            return f"\\hcancel{{{latex_joined_children}}}"
+        if self._notation == "madruwb":
+            return f"\\underline{{{latex_joined_children}\\right|}}"
+        if self._notation == "phasorangle":
+            return f"{{\\angle \\underline{{{latex_joined_children}}}}}"
+        return f"\\overline{{\\left.\\right){latex_joined_children}}}"
+
 
 # export class MError implements ToLaTeXConverter {
 #   private readonly _mathmlElement: MathMLElement;
@@ -743,17 +842,104 @@ class MEnclose(ToLaTeXConverter):
 #   }
 # }
 
+
 class MError(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
         self._adapter = adapter
 
     def convert(self) -> str:
-        latex_joined_children = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
+        latex_joined_children = " ".join(
+            [
+                self._adapter.to_latex_converter(child).convert()
+                for child in self._math_element.children
+            ]
+        )
 
-        return f'\\color{{red}}{{{latex_joined_children}}}'
+        return f"\\color{{red}}{{{latex_joined_children}}}"
 
 
+# export class MSubsup implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 3) throw new InvalidNumberOfChildrenError(name, 3, childrenLength);
+#
+#     const baseChild = children[0];
+#     const subscriptChild = children[1];
+#     const superscriptChild = children[2];
+#
+#     return `${this._handleBaseChild(baseChild)}_${this._handleSubscriptChild(subscriptChild)}^${this._handleSuperscriptChild(superscriptChild)}`;
+#   }
+#
+#   private _handleBaseChild(base: MathMLElement): string {
+#     const baseChildren = base.children;
+#     const baseStr = mathMLElementToLaTeXConverter(base).convert();
+#
+#     if (baseChildren.length <= 1) {
+#       return baseStr;
+#     }
+#
+#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(baseStr);
+#   }
+#
+#   private _handleSubscriptChild(subscript: MathMLElement): string {
+#     const subscriptStr = mathMLElementToLaTeXConverter(subscript).convert();
+#
+#     return new BracketWrapper().wrap(subscriptStr);
+#   }
+#
+#   private _handleSuperscriptChild(superscript: MathMLElement): string {
+#     const superscriptStr = mathMLElementToLaTeXConverter(superscript).convert();
+#
+#     return new BracketWrapper().wrap(superscriptStr);
+#   }
+# }
 
 
+class MSubsup(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._parenthesis_wrapper = ParenthesisWrapper()
+        self._bracket_wrapper = BracketWrapper()
 
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
+
+        if children_length != 3:
+            raise InvalidNumberOfChildrenError(name, 3, children_length)
+
+        base_child = children[0]
+        subscript_child = children[1]
+        superscript_child = children[2]
+
+        return f"{self._handle_base_child(base_child)}_{self._handle_subscript_child(subscript_child)}^{self._handle_superscript_child(superscript_child)}"
+
+    def _handle_base_child(self, base: MathMLElement) -> str:
+        base_children = base.children
+        base_str = self._adapter.to_latex_converter(base).convert()
+
+        if len(base_children) <= 1:
+            return base_str
+
+        return self._parenthesis_wrapper.wrap_if_more_than_one_char(base_str)
+
+    def _handle_subscript_child(self, subscript: MathMLElement) -> str:
+        subscript_str = self._adapter.to_latex_converter(subscript).convert()
+
+        return self._bracket_wrapper.wrap(subscript_str)
+
+    def _handle_superscript_child(self, superscript: MathMLElement) -> str:
+        superscript_str = self._adapter.to_latex_converter(superscript).convert()
+
+        return self._bracket_wrapper.wrap(superscript_str)
