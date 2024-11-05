@@ -1,5 +1,5 @@
 from src.mathml_to_tex.protocols import MathMLElement, VoidMathMLElement
-from .usecases import Void, MI, MO, MN, Math, MSup, GenericSpacingWrapper, MSqrt, MFenced, MTable, MTr, MSub
+from .usecases import Void, MI, MO, MN, Math, MSup, GenericSpacingWrapper, MSqrt, MFenced, MTable, MTr, MSub, MFrac
 
 
 class MathMLElementToLatexConverterAdapter:
@@ -17,7 +17,7 @@ class MathMLElementToLatexConverterAdapter:
             'mn': MN,
             'msqrt': self._make_msqrt_tag_converter,
             'mfenced': self._make_mfenced_tag_converter,
-            # 'mfrac': ToLatexConverters.MFrac,
+            'mfrac': self._make_mfrac_tag_converter,
             # 'mroot': ToLatexConverters.MRoot,
             # 'maction': ToLatexConverters.MAction,
             # 'menclose': ToLatexConverters.MEnclose,
@@ -54,6 +54,9 @@ class MathMLElementToLatexConverterAdapter:
 
     def _make_mtr_tag_converter(self, math_element: MathMLElement) -> MTr:
         return MTr(math_element, self)
+
+    def _make_mfrac_tag_converter(self, math_element: MathMLElement) -> MFrac:
+        return MFrac(math_element, self)
 
     def _make_msub_tag_converter(self, math_element: MathMLElement) -> MSub:
         return MSub(math_element, self)

@@ -673,8 +673,65 @@ mfenced_with_nested_mtables = '''
 </math>
 '''
 
+mfrac = '''
+<root>
+  <math>
+    <mfrac>
+      <mi>x</mi>
+      <mn>3</mn>
+    </mfrac>
+  </math>
+</root>
+'''
 
+mfrac_with_mrow = '''
+<root>
+  <math>
+    <mfrac>
+      <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mrow>
+        <mi>b</mi>
+        <mo>-</mo>
+        <mi>3</mi>
+      </mrow>
+    </mfrac>
+  </math>
+</root>
+'''
 
+short_m_frac = '''
+<root>
+  <math>
+    <mfrac bevelled="true">
+      <mn>1</mn>
+      <mrow>
+        <msup>
+          <mi>x</mi>
+          <mn>3</mn>
+        </msup>
+        <mo>+</mo>
+        <mn>3</mn>
+      </mrow>
+    </mfrac>
+  </math>
+</root>
+'''
+
+mfrac_with_three_children = '''
+<root>
+  <math>
+    <mfrac>
+      <mi>x</mi>
+      <mn>3</mn>
+      <mi>2</mi>
+    </mfrac>
+  </math>
+</root>
+'''
 
 
 

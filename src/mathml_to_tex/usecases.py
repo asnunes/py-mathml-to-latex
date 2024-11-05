@@ -515,3 +515,61 @@ class MSub(ToLaTeXConverter):
         subscript_str = self._adapter.to_latex_converter(subscript).convert()
 
         return self._bracket_wrapper.wrap(subscript_str)
+
+# export class MFrac implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { children, name } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
+#
+#     const num = mathMLElementToLaTeXConverter(children[0]).convert();
+#     const den = mathMLElementToLaTeXConverter(children[1]).convert();
+#
+#     if (this._isBevelled()) return `${this._wrapIfMoreThanOneChar(num)}/${this._wrapIfMoreThanOneChar(den)}`;
+#
+#     return `\\frac{${num}}{${den}}`;
+#   }
+#
+#   private _wrapIfMoreThanOneChar(str: string): string {
+#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(str);
+#   }
+#
+#   private _isBevelled(): boolean {
+#     return !!this._mathmlElement.attributes.bevelled;
+#   }
+# }
+
+class MFrac(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._parenthesis_wrapper = ParenthesisWrapper()
+
+    def convert(self) -> str:
+        children = self._math_element.children
+        name = self._math_element.name
+        children_length = len(children)
+
+        if children_length != 2:
+            raise InvalidNumberOfChildrenError(name, 2, children_length)
+
+        num = self._adapter.to_latex_converter(children[0]).convert()
+        den = self._adapter.to_latex_converter(children[1]).convert()
+
+        if self._is_bevelled():
+            return f'{self._wrap_if_more_than_one_char(num)}/{self._wrap_if_more_than_one_char(den)}'
+
+        return f'\\frac{{{num}}}{{{den}}}'
+
+    def _wrap_if_more_than_one_char(self, val: str) -> str:
+        return self._parenthesis_wrapper.wrap_if_more_than_one_char(val)
+
+    def _is_bevelled(self) -> bool:
+        return bool(self._math_element.attributes.get('bevelled'))

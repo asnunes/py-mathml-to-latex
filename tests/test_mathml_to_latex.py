@@ -1,6 +1,7 @@
 import unittest
 
 from src.main import MathMLToLaTeX
+from src.mathml_to_tex.protocols import InvalidNumberOfChildrenError
 from tests.mathml import (
     mi,
     mi_with_space,
@@ -13,7 +14,8 @@ from tests.mathml import (
     mfenced_without_attribute, mfenced_with_open, mfenced_with_open_and_close, mfenced_with_broken_close,
     mfenced_with_wrapped_content, mfenced_with_empty_separator, mfenced_with_separator, mfenced_with_diff_separators,
     mfenced_as_bmatrix, mfenced_as_pmatrix, mfenced_as_vmatrix, mfenced_as_big_bmatrix, mfenced_as_big_vmatrix,
-    mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables,
+    mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables, mfrac_with_three_children,
+    short_m_frac, mfrac_with_mrow, mfrac,
 
 )
 
@@ -212,24 +214,24 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(mfenced_with_nested_mtables)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfrac_simple(self):
-    #     expected_latex = '\\frac{x}{3}'
-    #     result = self.converter.convert(mfrac)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfrac_with_mrow(self):
-    #     expected_latex = '\\frac{a + 2}{b - 3}'
-    #     result = self.converter.convert(mfrac_with_mrow)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_short_m_frac(self):
-    #     expected_latex = '1/\\left(x^{3} + 3\\right)'
-    #     result = self.converter.convert(short_m_frac)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfrac_with_three_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(mfrac_with_three_children)
+    def test_convert_mfrac_simple(self):
+        expected_latex = '\\frac{x}{3}'
+        result = self.converter.convert(mfrac)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfrac_with_mrow(self):
+        expected_latex = '\\frac{a + 2}{b - 3}'
+        result = self.converter.convert(mfrac_with_mrow)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_short_m_frac(self):
+        expected_latex = '1/\\left(x^{3} + 3\\right)'
+        result = self.converter.convert(short_m_frac)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfrac_with_three_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(mfrac_with_three_children)
     #
     # def test_convert_mroot(self):
     #     expected_latex = '\\sqrt[3]{x + 2}'
