@@ -15,7 +15,7 @@ from tests.mathml import (
     mfenced_with_wrapped_content, mfenced_with_empty_separator, mfenced_with_separator, mfenced_with_diff_separators,
     mfenced_as_bmatrix, mfenced_as_pmatrix, mfenced_as_vmatrix, mfenced_as_big_bmatrix, mfenced_as_big_vmatrix,
     mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables, mfrac_with_three_children,
-    short_m_frac, mfrac_with_mrow, mfrac,
+    short_m_frac, mfrac_with_mrow, mfrac, mroot, mroot_with_three_children,
 
 )
 
@@ -232,16 +232,16 @@ class TestMathMLToLaTeX(unittest.TestCase):
     def test_convert_mfrac_with_three_children(self):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(mfrac_with_three_children)
-    #
-    # def test_convert_mroot(self):
-    #     expected_latex = '\\sqrt[3]{x + 2}'
-    #     result = self.converter.convert(mroot)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mroot_with_three_children(self):
-    #     with self.assertRaises(InvalidNumberOfChildrenError):
-    #         self.converter.convert(mroot_with_three_children)
-    #
+
+    def test_convert_mroot(self):
+        expected_latex = '\\sqrt[3]{x + 2}'
+        result = self.converter.convert(mroot)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mroot_with_three_children(self):
+        with self.assertRaises(InvalidNumberOfChildrenError):
+            self.converter.convert(mroot_with_three_children)
+
     # def test_convert_mpadded(self):
     #     expected_latex = '2 + 2'
     #     result = self.converter.convert(mpadded)

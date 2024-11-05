@@ -733,7 +733,36 @@ mfrac_with_three_children = '''
 </root>
 '''
 
+mroot = '''
+<root>
+  <math>
+    <mroot>
+      <mrow>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mn>3</mn>
+    </mroot> 
+  </math>
+</root>
+'''
 
+mroot_with_three_children = '''
+<root>
+  <math>
+    <mroot>
+      <mrow>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mi>2</mi>
+      </mrow>
+      <mn>3</mn>
+      <mn>2</mn>
+    </mroot> 
+  </math>
+</root>
+'''
 
 
 

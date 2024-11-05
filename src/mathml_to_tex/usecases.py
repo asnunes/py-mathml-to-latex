@@ -573,3 +573,41 @@ class MFrac(ToLaTeXConverter):
 
     def _is_bevelled(self) -> bool:
         return bool(self._math_element.attributes.get('bevelled'))
+
+# export class MRoot implements ToLaTeXConverter {
+#   private readonly _mathmlElement: MathMLElement;
+#
+#   constructor(mathElement: MathMLElement) {
+#     this._mathmlElement = mathElement;
+#   }
+#
+#   convert(): string {
+#     const { name, children } = this._mathmlElement;
+#     const childrenLength = children.length;
+#
+#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
+#
+#     const content = mathMLElementToLaTeXConverter(children[0]).convert();
+#     const rootIndex = mathMLElementToLaTeXConverter(children[1]).convert();
+#
+#     return `\\sqrt[${rootIndex}]{${content}}`;
+#   }
+# }
+
+class MRoot(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+
+    def convert(self) -> str:
+        name = self._math_element.name
+        children = self._math_element.children
+        children_length = len(children)
+
+        if children_length != 2:
+            raise InvalidNumberOfChildrenError(name, 2, children_length)
+
+        content = self._adapter.to_latex_converter(children[0]).convert()
+        root_index = self._adapter.to_latex_converter(children[1]).convert()
+
+        return f'\\sqrt[{root_index}]{{{content}}}'
