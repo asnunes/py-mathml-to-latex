@@ -1,6 +1,6 @@
 import unittest
 
-from src.main import MathMLToLaTeX
+from src.mathml_to_latex import MathMLToLaTeX
 from src.mathml_to_tex.protocols import InvalidNumberOfChildrenError
 from tests.mathml import (
     mi,
