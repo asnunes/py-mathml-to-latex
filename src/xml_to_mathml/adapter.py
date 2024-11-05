@@ -18,8 +18,8 @@ class XmlToMathMLAdapter:
 
         return self._elements_converter.convert(self._mathml_elements)
 
-    def _fix_error(self, error_message: str) -> None:
-        self._xml = self._error_handler.fix_error(self._xml, error_message)
+    def _fix_error(self, error: Exception) -> None:
+        self._xml = self._error_handler.fix_error(self._xml, error)
 
     def _remove_line_breaks(self, xml: str) -> str:
         line_break_pattern = re.compile(r'\n|\r\n|\r')
@@ -35,18 +35,7 @@ class XmlToMathMLAdapter:
             dom = parseString(self._xml)
             elements = dom.getElementsByTagName('math')
         except Exception as e:
-            self._fix_error(str(e))
-            dom = parseString(self._xml)
-            elements = dom.getElementsByTagName('math')
-
-        if self._error_handler.is_there_any_errors():
-            self._error_handler.clean_errors()
-            try:
-                dom = parseString(self._xml)
-                elements = dom.getElementsByTagName('math')
-            except Exception as e:
-                self._fix_error(str(e))
-                dom = parseString(self._xml)
-                elements = dom.getElementsByTagName('math')
+            self._fix_error(e)
+            return self._mathml_elements
 
         return list(elements)

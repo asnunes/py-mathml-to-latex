@@ -1,39 +1,41 @@
-from typing import List, Optional
+from xml.parsers.expat import ExpatError
+from typing import List
 import re
 
 
 class ErrorHandler:
     def __init__(self):
-        self._errors: List[str] = []
         self.error_locator = {}
 
-    def fix_error(self, xml: str, error_message: str) -> str:
-        if not self._is_missing_attribute_value_error(error_message):
+    def fix_error(self, xml: str, error: Exception) -> str:
+        if not isinstance(error, ExpatError):
             return xml
 
-        self._errors.append(error_message)
-        return self._fix_missing_attribute(error_message, xml)
+        return self._fix_missing_attribute(error, xml)
 
-    def is_there_any_errors(self) -> bool:
-        return len(self._errors) > 0
-
-    def clean_errors(self) -> None:
-        self._errors = []
-
-    def _fix_missing_attribute(self, error_message: str, xml: str) -> str:
-        parts = error_message.split('"')
-        if len(parts) > 1:
-            missing_attribute = parts[1]
-            pattern = self._match_missing_value_for_attribute(missing_attribute)
-            # Remove the missing attribute from the XML
-            xml = re.sub(pattern, '', xml)
-            return xml
+    def _fix_missing_attribute(self, error: ExpatError, xml: str) -> str:
+        result = self._fix_missing_attribute_value(error, xml)
+        if result != xml:
+            return result
 
         pattern = self._math_generic_missing_value()
         while re.search(pattern, xml):
             # Replace the matched pattern by removing the missing attribute value
-            xml = re.sub(pattern, r'\1\3', xml)
-        return xml
+            result = re.sub(pattern, r'\1\3', xml)
+        return result
+
+    def _fix_missing_attribute_value(self, error: ExpatError, xml: str):
+        error_code = error.code
+        if error_code != 4: return xml
+
+        error_line = error.lineno
+        error_offset = error.offset
+
+        goal_line = xml.split('\n')[error_line - 1]
+        word = self._get_word_at_str_pos(goal_line, error_offset)
+
+        pattern = self._match_missing_value_for_attribute(word)
+        return re.sub(pattern, '', xml)
 
     def _match_missing_value_for_attribute(self, attribute: str) -> re.Pattern:
         """
@@ -55,11 +57,14 @@ class ErrorHandler:
         # Group 3: ...> (anything up to >)
         return re.compile(r'(<.* )(\w+=(?!(["\'])))?(.*>)', re.MULTILINE)
 
-    def _is_missing_attribute_value_error(self, error_message: str) -> bool:
+    def _get_word_at_str_pos(self, string: str, pos: int) -> str:
         """
-        Determines if the error message pertains to a missing attribute value.
+        Returns the word at the specified position in the string.
         """
-        return (
-            ('attribute' in error_message and 'missed' in error_message) or
-            'attribute value missed' in error_message
-        )
+        start = pos
+        end = pos
+        while start > 0 and string[start - 1] != ' ':
+            start -= 1
+        while end < len(string) and string[end] != ' ' and string[end] != '>':
+            end += 1
+        return string[start:end]
