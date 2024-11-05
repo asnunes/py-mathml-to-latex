@@ -193,44 +193,6 @@ class MN(ToLaTeXConverter):
         return converted_value or normalized_value
 
 
-# export class MSup implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
-#
-#     const baseChild = children[0];
-#     const exponentChild = children[1];
-#
-#     return `${this._handleBaseChild(baseChild)}^${this._handleExponentChild(exponentChild)}`;
-#   }
-#
-#   private _handleBaseChild(base: MathMLElement): string {
-#     const baseChildren = base.children;
-#     const baseStr = mathMLElementToLaTeXConverter(base).convert();
-#
-#     if (baseChildren.length <= 1) {
-#       return baseStr;
-#     }
-#
-#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(baseStr);
-#   }
-#
-#   private _handleExponentChild(exponent: MathMLElement): string {
-#     const exponentStr = mathMLElementToLaTeXConverter(exponent).convert();
-#
-#     return new BracketWrapper().wrap(exponentStr);
-#   }
-# }
-
-
 class MSup(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -266,22 +228,6 @@ class MSup(ToLaTeXConverter):
         return self._bracket_wrapper.wrap(exponent_str)
 
 
-# export class GenericSpacingWrapper implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     return this._mathmlElement.children
-#       .map((child) => mathMLElementToLaTeXConverter(child))
-#       .map((converter) => converter.convert())
-#       .join(' ');
-#   }
-# }
-
-
 class GenericSpacingWrapper(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -294,24 +240,6 @@ class GenericSpacingWrapper(ToLaTeXConverter):
                 for child in self._math_element.children
             ]
         )
-
-
-# export class MSqrt implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const latexJoinedChildren = this._mathmlElement.children
-#       .map((child) => mathMLElementToLaTeXConverter(child))
-#       .map((converter) => converter.convert())
-#       .join(' ');
-#
-#     return `\\sqrt{${latexJoinedChildren}}`;
-#   }
-# }
 
 
 class MSqrt(ToLaTeXConverter):
@@ -434,40 +362,6 @@ class MFenced(ToLaTeXConverter):
         )
 
 
-# export class MTable implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#     this._addFlagRecursiveIfName(this._mathmlElement.children, 'mtable', 'innerTable');
-#   }
-#
-#   convert(): string {
-#     const tableContent = this._mathmlElement.children
-#       .map((child) => mathMLElementToLaTeXConverter(child))
-#       .map((converter) => converter.convert())
-#       .join(' \\\\\n');
-#
-#     return this._hasFlag('innerTable') ? this._wrap(tableContent) : tableContent;
-#   }
-#
-#   private _wrap(latex: string): string {
-#     return `\\begin{matrix}${latex}\\end{matrix}`;
-#   }
-#
-#   private _addFlagRecursiveIfName(mathmlElements: MathMLElement[], name: string, flag: string): void {
-#     mathmlElements.forEach((mathmlElement) => {
-#       if (mathmlElement.name === name) mathmlElement.attributes[flag] = flag;
-#       this._addFlagRecursiveIfName(mathmlElement.children, name, flag);
-#     });
-#   }
-#
-#   private _hasFlag(flag: string): boolean {
-#     return !!this._mathmlElement.attributes[flag];
-#   }
-# }
-
-
 class MTable(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -501,22 +395,6 @@ class MTable(ToLaTeXConverter):
         return bool(self._math_element.attributes.get(flag))
 
 
-# export class MTr implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     return this._mathmlElement.children
-#       .map((child) => mathMLElementToLaTeXConverter(child))
-#       .map((converter) => converter.convert())
-#       .join(' & ');
-#   }
-# }
-
-
 class MTr(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -529,44 +407,6 @@ class MTr(ToLaTeXConverter):
                 for child in self._math_element.children
             ]
         )
-
-
-# export class MSub implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
-#
-#     const baseChild = children[0];
-#     const subscriptChild = children[1];
-#
-#     return `${this._handleBaseChild(baseChild)}_${this._handleSubscriptChild(subscriptChild)}`;
-#   }
-#
-#   private _handleBaseChild(base: MathMLElement): string {
-#     const baseChildren = base.children;
-#     const baseStr = mathMLElementToLaTeXConverter(base).convert();
-#
-#     if (baseChildren.length <= 1) {
-#       return baseStr;
-#     }
-#
-#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(baseStr);
-#   }
-#
-#   private _handleSubscriptChild(subscript: MathMLElement): string {
-#     const subscriptStr = mathMLElementToLaTeXConverter(subscript).convert();
-#
-#     return new BracketWrapper().wrap(subscriptStr);
-#   }
-# }
 
 
 class MSub(ToLaTeXConverter):
@@ -604,37 +444,6 @@ class MSub(ToLaTeXConverter):
         return self._bracket_wrapper.wrap(subscript_str)
 
 
-# export class MFrac implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { children, name } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
-#
-#     const num = mathMLElementToLaTeXConverter(children[0]).convert();
-#     const den = mathMLElementToLaTeXConverter(children[1]).convert();
-#
-#     if (this._isBevelled()) return `${this._wrapIfMoreThanOneChar(num)}/${this._wrapIfMoreThanOneChar(den)}`;
-#
-#     return `\\frac{${num}}{${den}}`;
-#   }
-#
-#   private _wrapIfMoreThanOneChar(str: string): string {
-#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(str);
-#   }
-#
-#   private _isBevelled(): boolean {
-#     return !!this._mathmlElement.attributes.bevelled;
-#   }
-# }
-
-
 class MFrac(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -664,27 +473,6 @@ class MFrac(ToLaTeXConverter):
         return bool(self._math_element.attributes.get("bevelled"))
 
 
-# export class MRoot implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
-#
-#     const content = mathMLElementToLaTeXConverter(children[0]).convert();
-#     const rootIndex = mathMLElementToLaTeXConverter(children[1]).convert();
-#
-#     return `\\sqrt[${rootIndex}]{${content}}`;
-#   }
-# }
-
-
 class MRoot(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -702,32 +490,6 @@ class MRoot(ToLaTeXConverter):
         root_index = self._adapter.to_latex_converter(children[1]).convert()
 
         return f"\\sqrt[{root_index}]{{{content}}}"
-
-
-# export class MAction implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { children } = this._mathmlElement;
-#
-#     if (this._isToggle())
-#       return children
-#         .map((child) => mathMLElementToLaTeXConverter(child))
-#         .map((converter) => converter.convert())
-#         .join(' \\Longrightarrow ');
-#
-#     return mathMLElementToLaTeXConverter(children[0]).convert();
-#   }
-#
-#   private _isToggle(): boolean {
-#     const { actiontype } = this._mathmlElement.attributes;
-#     return actiontype === 'toggle' || !actiontype;
-#   }
-# }
 
 
 class MAction(ToLaTeXConverter):
@@ -751,42 +513,6 @@ class MAction(ToLaTeXConverter):
     def _is_toggle(self) -> bool:
         action_type = self._math_element.attributes.get("actiontype")
         return action_type == "toggle" or not action_type
-
-
-# export class MEnclose implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const latexJoinedChildren = this._mathmlElement.children
-#       .map((child) => mathMLElementToLaTeXConverter(child))
-#       .map((converter) => converter.convert())
-#       .join(' ');
-#
-#     if (this._notation === 'actuarial') return `\\overline{\\left.${latexJoinedChildren}\\right|}`;
-#     if (this._notation === 'radical') return `\\sqrt{${latexJoinedChildren}}`;
-#     if (['box', 'roundedbox', 'circle'].includes(this._notation)) return `\\boxed{${latexJoinedChildren}}`;
-#     if (this._notation === 'left') return `\\left|${latexJoinedChildren}`;
-#     if (this._notation === 'right') return `${latexJoinedChildren}\\right|`;
-#     if (this._notation === 'top') return `\\overline{${latexJoinedChildren}}`;
-#     if (this._notation === 'bottom') return `\\underline{${latexJoinedChildren}}`;
-#     if (this._notation === 'updiagonalstrike') return `\\cancel{${latexJoinedChildren}}`;
-#     if (this._notation === 'downdiagonalstrike') return `\\bcancel{${latexJoinedChildren}}`;
-#     if (this._notation === 'updiagonalarrow') return `\\cancelto{}{${latexJoinedChildren}}`;
-#     if (['verticalstrike', 'horizontalstrike'].includes(this._notation)) return `\\hcancel{${latexJoinedChildren}}`;
-#     if (this._notation === 'madruwb') return `\\underline{${latexJoinedChildren}\\right|}`;
-#     if (this._notation === 'phasorangle') return `{\\angle \\underline{${latexJoinedChildren}}}`;
-#
-#     return `\\overline{\\left.\\right)${latexJoinedChildren}}`;
-#   }
-#
-#   private get _notation(): string {
-#     return this._mathmlElement.attributes.notation || 'longdiv';
-#   }
-# }
 
 
 class MEnclose(ToLaTeXConverter):
@@ -832,24 +558,6 @@ class MEnclose(ToLaTeXConverter):
         return f"\\overline{{\\left.\\right){latex_joined_children}}}"
 
 
-# export class MError implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const latexJoinedChildren = this._mathmlElement.children
-#       .map((child) => mathMLElementToLaTeXConverter(child))
-#       .map((converter) => converter.convert())
-#       .join(' ');
-#
-#     return `\\color{red}{${latexJoinedChildren}}`;
-#   }
-# }
-
-
 class MError(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -864,51 +572,6 @@ class MError(ToLaTeXConverter):
         )
 
         return f"\\color{{red}}{{{latex_joined_children}}}"
-
-
-# export class MSubsup implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 3) throw new InvalidNumberOfChildrenError(name, 3, childrenLength);
-#
-#     const baseChild = children[0];
-#     const subscriptChild = children[1];
-#     const superscriptChild = children[2];
-#
-#     return `${this._handleBaseChild(baseChild)}_${this._handleSubscriptChild(subscriptChild)}^${this._handleSuperscriptChild(superscriptChild)}`;
-#   }
-#
-#   private _handleBaseChild(base: MathMLElement): string {
-#     const baseChildren = base.children;
-#     const baseStr = mathMLElementToLaTeXConverter(base).convert();
-#
-#     if (baseChildren.length <= 1) {
-#       return baseStr;
-#     }
-#
-#     return new ParenthesisWrapper().wrapIfMoreThanOneChar(baseStr);
-#   }
-#
-#   private _handleSubscriptChild(subscript: MathMLElement): string {
-#     const subscriptStr = mathMLElementToLaTeXConverter(subscript).convert();
-#
-#     return new BracketWrapper().wrap(subscriptStr);
-#   }
-#
-#   private _handleSuperscriptChild(superscript: MathMLElement): string {
-#     const superscriptStr = mathMLElementToLaTeXConverter(superscript).convert();
-#
-#     return new BracketWrapper().wrap(superscriptStr);
-#   }
-# }
 
 
 class MSubsup(ToLaTeXConverter):
@@ -952,47 +615,6 @@ class MSubsup(ToLaTeXConverter):
         return self._bracket_wrapper.wrap(superscript_str)
 
 
-# class TextCommand {
-#   private readonly _mathvariant: string;
-#
-#   constructor(mathvariant: string | undefined) {
-#     this._mathvariant = mathvariant || 'normal';
-#   }
-#
-#   apply(value: string) {
-#     return this._commands.reduce((acc, command, index) => {
-#       if (index === 0) return `${command}{${value}}`;
-#       return `${command}{${acc}}`;
-#     }, '');
-#   }
-#
-#   private get _commands(): string[] {
-#     switch (this._mathvariant) {
-#       case 'bold':
-#         return ['\\textbf'];
-#       case 'italic':
-#         return ['\\textit'];
-#       case 'bold-italic':
-#         return ['\\textit', '\\textbf'];
-#       case 'double-struck':
-#         return ['\\mathbb'];
-#       case 'monospace':
-#         return ['\\mathtt'];
-#       case 'bold-fraktur':
-#       case 'fraktur':
-#         return ['\\mathfrak'];
-#       default:
-#         return ['\\text'];
-#     }
-#   }
-# }
-#
-# type Char = {
-#   value: string;
-#   isAlphanumeric: boolean;
-# };
-
-
 class TextCommand:
     def __init__(self, math_variant: str):
         self._math_variant = math_variant or "normal"
@@ -1025,60 +647,6 @@ class Char:
     def __init__(self, value: str, is_alphanumeric: bool):
         self.value = value
         self.is_alphanumeric = is_alphanumeric
-
-
-# export class MText implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { attributes, value } = this._mathmlElement;
-#
-#     return [...value]
-#       .map<Char>((char) => {
-#         // if is a letter, number or space, return it
-#         if (/^[a-zA-Z0-9]$/.test(char) || char === ' ')
-#           return {
-#             value: char,
-#             isAlphanumeric: true,
-#           };
-#
-#         // if is a symbol, set it to mi parser
-#         return {
-#           value: char,
-#           isAlphanumeric: false,
-#         };
-#       })
-#       .reduce<Char[]>((acc, char) => {
-#         // merge consecutive alphanumeric characters
-#         if (char.isAlphanumeric) {
-#           const lastChar = acc[acc.length - 1];
-#           if (lastChar && lastChar.isAlphanumeric) {
-#             lastChar.value += char.value;
-#             return acc;
-#           }
-#         }
-#
-#         return [...acc, char];
-#       }, [])
-#       .map((char) => {
-#         if (!char.isAlphanumeric) {
-#           return new MI({
-#             name: 'mi',
-#             attributes: {},
-#             children: [],
-#             value: char.value,
-#           }).convert();
-#         }
-#
-#         return new TextCommand(attributes.mathvariant).apply(char.value);
-#       })
-#       .join('');
-#   }
-# }
 
 
 class MText(ToLaTeXConverter):
@@ -1119,29 +687,6 @@ class MText(ToLaTeXConverter):
         )
 
 
-# class UnderOverSetter {
-#   private readonly _type;
-#
-#   constructor(type: TagTypes) {
-#     this._type = type;
-#   }
-#
-#   apply(content: string, accent: string) {
-#     return latexAccents.includes(accent) ? `${accent}{${content}}` : `${this._defaultCommand}{${accent}}{${content}}`;
-#   }
-#
-#   private get _defaultCommand(): string {
-#     if (this._type === TagTypes.Under) return '\\underset';
-#     return '\\overset';
-#   }
-# }
-#
-# enum TagTypes {
-#   Under,
-#   Over,
-# }
-
-
 class TagTypes(Enum):
     Under = 1
     Over = 2
@@ -1162,33 +707,6 @@ class UnderOverSetter:
     @property
     def _default_command(self) -> str:
         return "\\underset" if self._type == TagTypes.Under else "\\overset"
-
-
-# export class GenericUnderOver implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 2) throw new InvalidNumberOfChildrenError(name, 2, childrenLength);
-#
-#     const content = mathMLElementToLaTeXConverter(children[0]).convert();
-#     const accent = mathMLElementToLaTeXConverter(children[1]).convert();
-#
-#     return this._applyCommand(content, accent);
-#   }
-#
-#   private _applyCommand(content: string, accent: string): string {
-#     const type = this._mathmlElement.name.match(/under/) ? TagTypes.Under : TagTypes.Over;
-#     return new UnderOverSetter(type).apply(content, accent);
-#   }
-# }
-#
 
 
 class GenericUnderOver(ToLaTeXConverter):
@@ -1218,28 +736,6 @@ class GenericUnderOver(ToLaTeXConverter):
         return UnderOverSetter(ty).apply(content, accent)
 
 
-# export class MUnderover implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength !== 3) throw new InvalidNumberOfChildrenError(name, 3, childrenLength);
-#
-#     const base = mathMLElementToLaTeXConverter(children[0]).convert();
-#     const underContent = mathMLElementToLaTeXConverter(children[1]).convert();
-#     const overContent = mathMLElementToLaTeXConverter(children[2]).convert();
-#
-#     return `${base}_{${underContent}}^{${overContent}}`;
-#   }
-# }
-
-
 class MUnderover(ToLaTeXConverter):
     def __init__(self, math_element: MathMLElement, adapter):
         self._math_element = math_element
@@ -1258,67 +754,6 @@ class MUnderover(ToLaTeXConverter):
         over_content = self._adapter.to_latex_converter(children[2]).convert()
 
         return f"{base}_{{{under_content}}}^{{{over_content}}}"
-
-
-# export class MMultiscripts implements ToLaTeXConverter {
-#   private readonly _mathmlElement: MathMLElement;
-#
-#   constructor(mathElement: MathMLElement) {
-#     this._mathmlElement = mathElement;
-#   }
-#
-#   convert(): string {
-#     const { name, children } = this._mathmlElement;
-#     const childrenLength = children.length;
-#
-#     if (childrenLength < 3) throw new InvalidNumberOfChildrenError(name, 3, childrenLength, 'at least');
-#
-#     const baseContent = mathMLElementToLaTeXConverter(children[0]).convert();
-#
-#     return this._prescriptLatex() + this._wrapInParenthesisIfThereIsSpace(baseContent) + this._postscriptLatex();
-#   }
-#
-#   private _prescriptLatex(): string {
-#     const { children } = this._mathmlElement;
-#     let sub;
-#     let sup;
-#
-#     if (this._isPrescripts(children[1])) {
-#       sub = children[2];
-#       sup = children[3];
-#     } else if (this._isPrescripts(children[3])) {
-#       sub = children[4];
-#       sup = children[5];
-#     } else return '';
-#
-#     const subLatex = mathMLElementToLaTeXConverter(sub).convert();
-#     const supLatex = mathMLElementToLaTeXConverter(sup).convert();
-#
-#     return `\\_{${subLatex}}^{${supLatex}}`;
-#   }
-#
-#   private _postscriptLatex(): string {
-#     const { children } = this._mathmlElement;
-#     if (this._isPrescripts(children[1])) return '';
-#
-#     const sub = children[1];
-#     const sup = children[2];
-#
-#     const subLatex = mathMLElementToLaTeXConverter(sub).convert();
-#     const supLatex = mathMLElementToLaTeXConverter(sup).convert();
-#
-#     return `_{${subLatex}}^{${supLatex}}`;
-#   }
-#
-#   private _wrapInParenthesisIfThereIsSpace(str: string): string {
-#     if (!str.match(/\s+/g)) return str;
-#     return new ParenthesisWrapper().wrap(str);
-#   }
-#
-#   private _isPrescripts(child: MathMLElement): boolean {
-#     return child?.name === 'mprescripts';
-#   }
-# }
 
 
 class MMultiscripts(ToLaTeXConverter):

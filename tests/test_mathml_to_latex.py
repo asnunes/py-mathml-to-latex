@@ -108,6 +108,14 @@ from tests.mathml import (
     mmultiscript_preset_with_none,
     mmultiscript_preset_only,
     mmultiscript_with_two_children,
+    math_with_epsilon_glyph,
+    math_with_mu_glyph,
+    math_with_cdot_glyph,
+    math_with_alternative1,
+    math_with_alternative_square,
+    input_expected_pairs,
+    ms_word_input,
+    mathml_with_delimiters,
 )
 
 
@@ -662,65 +670,57 @@ class TestMathMLToLaTeX(unittest.TestCase):
         with self.assertRaises(InvalidNumberOfChildrenError):
             self.converter.convert(mmultiscript_with_two_children)
 
-    # def test_convert_mmultiscript_trim_spaces(self):
-    #     expected_latex = "x"
-    #     result = self.converter.convert(
-    #         math_with_epsilon_glyph
-    #     )  # Adjusted to the correct variable
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_special_epsilon(self):
+        expected_latex = (
+            "d = \\left(\\frac{q^{2} L}{2 \\pi \\epsilon_{0} m g}\\right)^{1 / 3}"
+        )
+        result = self.converter.convert(math_with_epsilon_glyph)
+        self.assertEqual(result, expected_latex)
 
-    # def test_convert_special_epsilon(self):
-    #     expected_latex = 'd = \\left(\\frac{q^{2} L}{2 \\pi \\epsilon_{0} m g}\\right)^{1 / 3}'
-    #     result = self.converter.convert(math_with_epsilon_glyph)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mu(self):
-    #     expected_latex = '2 \\mu s'
-    #     result = self.converter.convert(math_with_mu_glyph)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_cdot_in_text(self):
-    #     expected_latex = '\\text{kg}\\cdot\\text{m}^{2}'
-    #     result = self.converter.convert(math_with_cdot_glyph)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_alternative_imath(self):
-    #     expected_latex = 'E \\left(W_{\\imath}\\right) = \\mu'
-    #     result = self.converter.convert(math_with_alternative1)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_alternative_square(self):
-    #     expected_latex = '2 \\blacksquare s'
-    #     result = self.converter.convert(math_with_alternative_square)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_input_expected_pairs(self):
-    #     for pair in input_expected_pairs:
-    #         input_val = pair['input']
-    #         expected = pair['expected']
-    #         op = pair['op']
-    #         mathml = f'<math xmlns="http://www.w3.org/1998/Math/MathML"><{op}>{input_val}</{op}></math>'
-    #         result = self.converter.convert(mathml)
-    #         self.assertEqual(result, expected)
-    #
-    # def test_convert_ms_word_input(self):
-    #     expected_latex = (
-    #         'V_{i} \\frac{\\Delta C_{A , i}^{t}}{\\Delta t} = '
-    #         '\\sum_{j = k}^{N} G_{i , j}^{D} \\left(C_{A , j} - C_{A , i}\\right)'
-    #     )
-    #     result = self.converter.convert(ms_word_input)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_complex_mathml(self):
-    #     expected_latex = (
-    #         '\\text{Required Value}_{\\text{other}} \\geq '
-    #         '\\frac{21 f t^{3}}{A C H} \\cdot '
-    #         '\\left(\\frac{I_{o}}{1000 B_{\\text{Btu}/\\text{h}}}\\right)'
-    #     )
-    #     result = self.converter.convert(complex_mathml)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mmultiscripts_empty_preset(self):
-    #     expected_latex = '\\_{b}^{}X_{}^{c}'
-    #     result = self.converter.convert(mmultiscript_preset_with_none)
-    #     self.assertEqual(result, expected_latex)
+    def test_convert_mu(self):
+        expected_latex = "2 \\mu s"
+        result = self.converter.convert(math_with_mu_glyph)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_cdot_in_text(self):
+        expected_latex = "\\text{kg}\\cdot\\text{m}^{2}"
+        result = self.converter.convert(math_with_cdot_glyph)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_alternative_imath(self):
+        expected_latex = "E \\left(W_{\\imath}\\right) = \\mu"
+        result = self.converter.convert(math_with_alternative1)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_alternative_square(self):
+        expected_latex = "2 \\blacksquare s"
+        result = self.converter.convert(math_with_alternative_square)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_input_expected_pairs(self):
+        for pair in input_expected_pairs:
+            input_val = pair["input"]
+            expected = pair["expected"]
+            op = pair["op"]
+
+            mathml = f'<math xmlns="http://www.w3.org/1998/Math/MathML"><{op}>{input_val}</{op}></math>'
+            result = self.converter.convert(mathml)
+            self.assertEqual(result, expected)
+
+    def test_convert_ms_word_input(self):
+        expected_latex = (
+            "V_{i} \\frac{\\Delta C_{A , i}^{t}}{\\Delta t} = "
+            "\\sum_{j = k}^{N} G_{i , j}^{D} \\left(C_{A , j} - C_{A , i}\\right)"
+        )
+        result = self.converter.convert(ms_word_input)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_not_add_unnecessary_delimiters(self):
+        expected_latex = "\\text{Required Value}_{\\text{other}} \\geq \\frac{21 f t^{3}}{A C H} \\cdot \\left(\\right. \\frac{I_{o}}{1000 B_{\\text{Btu} / \\text{h}}} \\left.\\right)"
+        result = self.converter.convert(mathml_with_delimiters)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mmultiscripts_empty_preset(self):
+        expected_latex = "\\_{b}^{}X_{}^{c}"
+        result = self.converter.convert(mmultiscript_preset_with_none)
+        self.assertEqual(result, expected_latex)
