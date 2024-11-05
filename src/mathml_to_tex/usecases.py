@@ -1,10 +1,10 @@
-from typing import Optional
+from typing import Optional, List
 
 from src.syntax import HashUTF8ToLtXConverter, all_math_symbols_by_char, all_math_symbols_by_glyph, math_number_by_glyph, \
     all_math_operators_by_char, all_math_operators_by_glyph
 from .protocols import ToLaTeXConverter, MathMLElement, InvalidNumberOfChildrenError
 from .services.normalizer import WhiteSpaceNormalizer
-from .services.wrapper import ParenthesisWrapper, BracketWrapper
+from .services.wrapper import ParenthesisWrapper, BracketWrapper, GenericWrapper, JoinWithManySeparators
 
 
 class Math(ToLaTeXConverter):
@@ -279,3 +279,89 @@ class MSqrt(ToLaTeXConverter):
         latex_joined_children = ' '.join([self._adapter.to_latex_converter(child).convert() for child in self._math_element.children])
 
         return f'\\sqrt{{{latex_joined_children}}}'
+
+class Separators:
+    def __init__(self, op: str, close: str):
+        self._open = op
+        self._close = close
+
+    def wrap(self, string: str) -> str:
+        return GenericWrapper(self._open, self._close).wrap(string)
+
+    def are_parentheses(self) -> bool:
+        return self._compare('(', ')')
+
+    def are_square_brackets(self) -> bool:
+        return self._compare('[', ']')
+
+    def are_brackets(self) -> bool:
+        return self._compare('{', '}')
+
+    def are_divides(self) -> bool:
+        return self._compare('|', '|')
+
+    def are_parallels(self) -> bool:
+        return self._compare('||', '||')
+
+    def are_not_equal(self) -> bool:
+        return self._open != self._close
+
+    def _compare(self, open_to_compare: str, close_to_compare: str) -> bool:
+        return self._open == open_to_compare and self._close == close_to_compare
+
+
+class Vector:
+    def __init__(self, op: str, close: str, separators: List[str]):
+        self._open = op if op != '' else '('
+        self._close = close if close != '' else ')'
+        self._separators = separators
+
+    def apply(self, latex_contents):
+        content_without_wrapper = JoinWithManySeparators(self._separators).join(latex_contents)
+        return GenericWrapper(self._open, self._close).wrap(content_without_wrapper)
+
+class Matrix:
+    def __init__(self, op: str, close: str):
+        self._separators = Separators(op, close)
+        self._generic_command = 'matrix'
+
+    def apply(self, latex_contents):
+        command = self._command
+        matrix = f'\\begin{{{command}}}\n{"".join(latex_contents)}\n\\end{{{command}}}'
+
+        return self._separators.wrap(matrix)
+
+    @property
+    def _command(self):
+        if self._separators.are_parentheses():
+            return 'pmatrix'
+        if self._separators.are_square_brackets():
+            return 'bmatrix'
+        if self._separators.are_brackets():
+            return 'Bmatrix'
+        if self._separators.are_divides():
+            return 'vmatrix'
+        if self._separators.are_parallels():
+            return 'Vmatrix'
+        if self._separators.are_not_equal():
+            return self._generic_command
+        return 'bmatrix'
+
+class MFenced(ToLaTeXConverter):
+    def __init__(self, math_element: MathMLElement, adapter):
+        self._math_element = math_element
+        self._adapter = adapter
+        self._open = self._math_element.attributes.get('open', '')
+        self._close = self._math_element.attributes.get('close', '')
+        self._separators = list(self._math_element.attributes.get('separators', ''))
+
+    def convert(self) -> str:
+        latex_children = [self._adapter.to_latex_converter(child).convert() for child in self._math_element.children]
+
+        if self._is_there_relative_of_name(self._math_element.children, 'mtable'):
+            return Matrix(self._open, self._close).apply(latex_children)
+
+        return Vector(self._open, self._close, self._separators).apply(latex_children)
+
+    def _is_there_relative_of_name(self, mathml_elements, element_name):
+        return any([child.name == element_name or self._is_there_relative_of_name(child.children, element_name) for child in mathml_elements])

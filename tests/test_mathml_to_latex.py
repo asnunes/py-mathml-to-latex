@@ -10,6 +10,10 @@ from tests.mathml import (
     mi_with_especial_char,
     mo_with_simple_operator, mo_divider_operator, mo_with_glyph_operator, mo_with_char_operator,
     mo_with_char_operator_and_mi, mrow_with_mn_and_mo, msqrt, msqrt_with_wrapped_content, msqrt_with_mrow, empty_msqrt,
+    mfenced_without_attribute, mfenced_with_open, mfenced_with_open_and_close, mfenced_with_broken_close,
+    mfenced_with_wrapped_content, mfenced_with_empty_separator, mfenced_with_separator, mfenced_with_diff_separators,
+    mfenced_as_bmatrix, mfenced_as_pmatrix, mfenced_as_vmatrix, mfenced_as_big_bmatrix, mfenced_as_big_vmatrix,
+    mfenced_as_matrix, mfenced_as_partial_function, mfenced_with_nested_mtables,
 
 )
 
@@ -118,81 +122,81 @@ class TestMathMLToLaTeX(unittest.TestCase):
         result = self.converter.convert(empty_msqrt)
         self.assertEqual(result, expected_latex)
 
-    # def test_convert_mfenced_without_attribute(self):
-    #     expected_latex = '\\left(3\\right)'
-    #     result = self.converter.convert(mfenced_without_attribute)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_open(self):
-    #     expected_latex = '\\left{3\\right)'
-    #     result = self.converter.convert(mfenced_with_open)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_open_and_close(self):
-    #     expected_latex = '\\left(3\\right)'
-    #     result = self.converter.convert(mfenced_with_open_and_close)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_broken_close(self):
-    #     expected_latex = '\\left{3\\right)'
-    #     result = self.converter.convert(mfenced_with_broken_close)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_wrapped_content(self):
-    #     expected_latex = '\\left(3,2,1\\right)'
-    #     result = self.converter.convert(mfenced_with_wrapped_content)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_empty_separator(self):
-    #     expected_latex = '\\left(3,2,1,7\\right)'
-    #     result = self.converter.convert(mfenced_with_empty_separator)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_separator(self):
-    #     expected_latex = '\\left(3;2;1\\right)'
-    #     result = self.converter.convert(mfenced_with_separator)
-    #     self.assertEqual(result, expected_latex)
-    #
-    # def test_convert_mfenced_with_diff_separators(self):
-    #     expected_latex = '\\left(3;2.1.7\\right)'
-    #     result = self.converter.convert(mfenced_with_diff_separators)
-    #     self.assertEqual(result, expected_latex)
-    #
+    def test_convert_mfenced_without_attribute(self):
+        expected_latex = '\\left(3\\right)'
+        result = self.converter.convert(mfenced_without_attribute)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_open(self):
+        expected_latex = '\\left{3\\right)'
+        result = self.converter.convert(mfenced_with_open)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_open_and_close(self):
+        expected_latex = '\\left(3\\right)'
+        result = self.converter.convert(mfenced_with_open_and_close)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_broken_close(self):
+        expected_latex = '\\left{3\\right)'
+        result = self.converter.convert(mfenced_with_broken_close)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_wrapped_content(self):
+        expected_latex = '\\left(3,2,1\\right)'
+        result = self.converter.convert(mfenced_with_wrapped_content)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_empty_separator(self):
+        expected_latex = '\\left(3,2,1,7\\right)'
+        result = self.converter.convert(mfenced_with_empty_separator)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_separator(self):
+        expected_latex = '\\left(3;2;1\\right)'
+        result = self.converter.convert(mfenced_with_separator)
+        self.assertEqual(result, expected_latex)
+
+    def test_convert_mfenced_with_diff_separators(self):
+        expected_latex = '\\left(3;2.1.7\\right)'
+        result = self.converter.convert(mfenced_with_diff_separators)
+        self.assertEqual(result, expected_latex)
+
     # def test_convert_mfenced_as_bmatrix(self):
     #     expected_latex = 'A = \\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}'
     #     result = self.converter.convert(mfenced_as_bmatrix)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_as_pmatrix(self):
     #     expected_latex = 'A = \\begin{pmatrix} x & y \\\\ z & w \\end{pmatrix}'
     #     result = self.converter.convert(mfenced_as_pmatrix)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_as_vmatrix(self):
     #     expected_latex = 'A = \\begin{vmatrix} x & y \\\\ z & w \\end{vmatrix}'
     #     result = self.converter.convert(mfenced_as_vmatrix)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_as_big_bmatrix(self):
     #     expected_latex = 'A = \\begin{Bmatrix} x & y \\\\ z & w \\end{Bmatrix}'
     #     result = self.converter.convert(mfenced_as_big_bmatrix)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_as_big_vmatrix(self):
     #     expected_latex = 'A = \\begin{Vmatrix} x & y \\\\ z & w \\end{Vmatrix}'
     #     result = self.converter.convert(mfenced_as_big_vmatrix)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_as_matrix(self):
     #     expected_latex = 'A = \\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}'
     #     result = self.converter.convert(mfenced_as_matrix)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_as_partial_function(self):
     #     expected_latex = 'f \\left(x\\right) = \\left{\\begin{matrix} x^{2} , x < 0 \\\\ e^{x} , x \\geq 0 \\end{matrix}\\right'
     #     result = self.converter.convert(mfenced_as_partial_function)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfenced_with_nested_mtables(self):
     #     expected_latex = (
     #         '\\begin{bmatrix} \\begin{matrix}a_{11} & a_{12}\\end{matrix} & '
@@ -207,7 +211,7 @@ class TestMathMLToLaTeX(unittest.TestCase):
     #     )
     #     result = self.converter.convert(mfenced_with_nested_mtables)
     #     self.assertEqual(result, expected_latex)
-    #
+
     # def test_convert_mfrac_simple(self):
     #     expected_latex = '\\frac{x}{3}'
     #     result = self.converter.convert(mfrac)
