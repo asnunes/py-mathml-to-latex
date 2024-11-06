@@ -116,6 +116,7 @@ from tests.mathml import (
     input_expected_pairs,
     ms_word_input,
     mathml_with_delimiters,
+    invalid_mathml,
 )
 
 
@@ -724,3 +725,7 @@ class TestMathMLToLaTeX(unittest.TestCase):
         expected_latex = "\\_{b}^{}X_{}^{c}"
         result = self.converter.convert(mmultiscript_preset_with_none)
         self.assertEqual(result, expected_latex)
+
+    def test_should_fail_if_invalid_mathml_is_given(self):
+        with self.assertRaises(Exception):
+            self.converter.convert(invalid_mathml)

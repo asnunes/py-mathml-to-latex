@@ -4203,3 +4203,11 @@ mathml_with_delimiters = """
   </semantics>
 </math>
 """
+
+invalid_mathml = """
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mn>20</mn>
+  <mo>°</mo>
+  <mi>C</mi>
+</math>. Qual é o valor de
+"""

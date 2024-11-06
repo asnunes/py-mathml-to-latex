@@ -7,6 +7,9 @@
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/services/error_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/services/error_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/mathml.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/mathml.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +53,7 @@
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_ms_word_input.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_munder_double_mrow.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_not_add_unnecessary_delimiters.executor": "Run",
+    "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
@@ -68,7 +72,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_ms_word_input">
+  <component name="RunManager" selected="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given">
     <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_input_expected_pairs" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="py-mathml-to-latex" />
       <option name="ENV_FILES" value="" />
@@ -117,22 +121,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_munder_double_mrow" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="py-mathml-to-latex" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_munder_double_mrow&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_not_add_unnecessary_delimiters" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="py-mathml-to-latex" />
       <option name="ENV_FILES" value="" />
@@ -149,13 +137,29 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="py-mathml-to-latex" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_ms_word_input" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_input_expected_pairs" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_not_add_unnecessary_delimiters" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mmultiscript_preset_only" />
-        <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_munder_double_mrow" />
       </list>
     </recent_temporary>
   </component>
@@ -175,7 +179,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="42734000" />
+      <workItem from="1730573663996" duration="45461000" />
     </task>
     <servers />
   </component>
@@ -183,6 +187,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/py_mathml_to_latex$.coverage" NAME=" Coverage Results" MODIFIED="1730827803616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/py_mathml_to_latex$.coverage" NAME=" Coverage Results" MODIFIED="1730912501667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
 </project>

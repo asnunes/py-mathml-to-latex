@@ -16,7 +16,6 @@ class XmlToMathMLAdapter:
         self._xml = ""
         self._elements_converter = elements_converter
         self._error_handler = error_handler
-        self._error_counter = 0
 
     def convert(self, xml: str) -> List[MathMLElement]:
         self._xml = self._remove_line_breaks(xml)
@@ -37,16 +36,16 @@ class XmlToMathMLAdapter:
 
     @property
     def _mathml_elements(self) -> List[Element]:
-        try:
-            dom = parseString(self._xml)
-            elements = dom.getElementsByTagName("math")
-        except Exception as e:
-            self._fix_error(e)
-            self._error_counter += 1
+        exception = None
 
-            if self._error_counter > 5:
-                raise e
-            else:
-                return self._mathml_elements
+        for _ in range(5):
+            try:
+                dom = parseString(self._xml)
+                elements = dom.getElementsByTagName("math")
+                return list(elements)
+            except Exception as e:
+                self._fix_error(e)
+                exception = e
 
-        return list(elements)
+        if exception:
+            raise exception

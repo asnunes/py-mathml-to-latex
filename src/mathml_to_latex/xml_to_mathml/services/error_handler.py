@@ -18,7 +18,9 @@ class ErrorHandler:
             return result
 
         pattern = self._math_generic_missing_value()
-        while re.search(pattern, xml):
+        counter = 0
+        while re.search(pattern, xml) and counter < 5:
+            counter += 1
             # Replace the matched pattern by removing the missing attribute value
             result = re.sub(pattern, r"\1\3", xml)
         return result
