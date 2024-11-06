@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/mathml_to_latex/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mathml_to_latex/mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/converter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/mathml_to_latex/xml_to_mathml/adapter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +175,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730573661750</updated>
-      <workItem from="1730573663996" duration="42024000" />
+      <workItem from="1730573663996" duration="42734000" />
     </task>
     <servers />
   </component>
