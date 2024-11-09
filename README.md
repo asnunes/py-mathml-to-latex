@@ -12,6 +12,31 @@ pip install mathml-to-latex
 ## Usage
 
 ```python
+from mathml_to_latex.converter import MathMLToLaTeX
+
+mathml = """
+<math>
+    <mrow>
+        <mi>A</mi>
+        <mo>=</mo>
+        <mfenced open = "[" close="]">
+        <mtable>
+            <mtr>
+            <mtd><mi>x</mi></mtd>
+            <mtd><mi>y</mi></mtd>
+            </mtr>
+            <mtr>
+            <mtd><mi>z</mi></mtd>
+            <mtd><mi>w</mi></mtd>
+            </mtr>
+        </mtable>
+        </mfenced>
+    </mrow>
+</math>
+"""
+
+result = MathMLToLaTeX().convert(mathml)
+# A = \begin{bmatrix} x & y \\ z & w \end{bmatrix}
 ```
 
 
