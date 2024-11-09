@@ -39,4 +39,8 @@ result = MathMLToLaTeX().convert(mathml)
 # A = \begin{bmatrix} x & y \\ z & w \end{bmatrix}
 ```
 
+## Running Tests
 
+```bash
+python -m unittest discover tests
+```
