@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5974d8a5-d6b6-42ef-ae6d-38b5d552e757" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mathml_to_latex.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +38,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Makefile Target.docker-test.executor": "Run",
+    "Makefile Target.test.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_input_expected_pairs.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_maction_type_statusline.executor": "Run",
     "Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_maction_type_toggle.executor": "Run",
@@ -71,7 +74,19 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given">
+  <component name="RunManager" selected="Makefile Target.docker-test">
+    <configuration name="docker-test" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="docker-test" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="test" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_input_expected_pairs" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="py-mathml-to-latex" />
       <option name="ENV_FILES" value="" />
@@ -88,22 +103,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mmultiscript_preset_only" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="py-mathml-to-latex" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mmultiscript_preset_only&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_ms_word_input" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="py-mathml-to-latex" />
       <option name="ENV_FILES" value="" />
@@ -117,22 +116,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_ms_word_input&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_not_add_unnecessary_delimiters" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="py-mathml-to-latex" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_mathml_to_latex.TestMathMLToLaTeX.test_convert_not_add_unnecessary_delimiters&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -154,11 +137,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile Target.docker-test" />
+        <item itemvalue="Makefile Target.test" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_should_fail_if_invalid_mathml_is_given" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_ms_word_input" />
         <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_input_expected_pairs" />
-        <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_not_add_unnecessary_delimiters" />
-        <item itemvalue="Python tests.Python tests for test_mathml_to_latex.TestMathMLToLaTeX.test_convert_mmultiscript_preset_only" />
       </list>
     </recent_temporary>
   </component>
@@ -180,7 +163,7 @@
       <updated>1730573661750</updated>
       <workItem from="1730573663996" duration="48295000" />
       <workItem from="1731000130043" duration="28000" />
-      <workItem from="1731154948131" duration="696000" />
+      <workItem from="1731154948131" duration="1472000" />
     </task>
     <servers />
   </component>

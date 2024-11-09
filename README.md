@@ -44,3 +44,9 @@ result = MathMLToLaTeX().convert(mathml)
 ```bash
 python -m unittest discover tests
 ```
+
+### Using Docker
+```bash
+docker build -t mathml-to-latex-test .
+docker run mathml-to-latex-test
+```
