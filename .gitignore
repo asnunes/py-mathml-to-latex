@@ -1,6 +1,27 @@
-__pycache__
-dist
 .DS_Store
 ./**/__pycache__
 ./**/.DS_Store
 src/**/*.egg-info
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# Docker
+*.log
